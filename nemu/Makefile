@@ -1,6 +1,6 @@
 NAME = nemu
 
-ISA ?= riscv64
+ISA ?= x86
 ISAS = $(shell ls src/isa/)
 ifeq ($(filter $(ISAS), $(ISA)), ) # ISA must be valid
 $(error Invalid ISA. Supported: $(ISAS))
@@ -26,7 +26,7 @@ LD_LIBS = -lSDL2 -lreadline -ldl
 endif
 
 ifndef SHARE
-DIFF ?= qemu
+DIFF ?= kvm
 ifneq ($(ISA),x86)
 ifeq ($(DIFF),kvm)
 DIFF = qemu
