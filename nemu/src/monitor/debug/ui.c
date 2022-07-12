@@ -43,6 +43,8 @@ static int cmd_q(char *args)
 
 static int cmd_help(char *args);
 
+static int cmd_si_n(char *args);
+
 static struct
 {
   char *name;
@@ -54,6 +56,7 @@ static struct
     {"q", "Exit NEMU", cmd_q},
 
     /* TODO: Add more commands */
+    {"si [N]","让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1",cmd_si_n},
 
 };
 
@@ -88,6 +91,10 @@ static int cmd_help(char *args)
   return 0;
 }
 
+static int cmd_si_n(char *args){
+  Log("%s","dasdsa");
+  return 0;
+}
 void ui_mainloop()
 {
   if (is_batch_mode())
