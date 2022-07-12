@@ -94,11 +94,12 @@ static int cmd_help(char *args)
 static int cmd_si_n(char *args){
   Log("%s","调用si指令");
   char *arg = strtok(NULL, " ");
+
   if(arg == NULL){
     Log("指令参数为1");
   }
   else{
-    Log("指令参数为%s",arg);
+    Log("指令参数为%d",arg);
   }
   return 0;
 }
