@@ -99,7 +99,7 @@ static int cmd_si_n(char *args){
     Log("指令参数为1");
   }
   else{
-    Log("指令参数为%d",arg);
+    Log("指令参数为%c",arg);
   }
   return 0;
 }
