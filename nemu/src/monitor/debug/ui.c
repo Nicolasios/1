@@ -96,10 +96,10 @@ static int cmd_si_n(char *args){
   char *arg = strtok(NULL, " ");
 
   if(arg == NULL){
-    Log("指令参数为1");
+    Log("指令参数为:1");
   }
   else{
-    Log("指令参数为%c",arg);
+    Log("指令参数为:%s",arg);
   }
   return 0;
 }
