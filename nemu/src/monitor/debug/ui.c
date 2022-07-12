@@ -56,7 +56,7 @@ static struct
     {"q", "Exit NEMU", cmd_q},
 
     /* TODO: Add more commands */
-    {"si [N]","让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1",cmd_si_n},
+    {"si","让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1",cmd_si_n},
 
 };
 
