@@ -92,7 +92,18 @@ static int cmd_help(char *args)
 }
 
 static int cmd_si_n(char *args){
-  Log("%s","dasdsa");
+  int steps;
+  steps = 0;
+  Log("%s","调用si指令");
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL){
+    Log("指令参数为1");
+    steps = 1;
+  }
+  else{
+    steps = 2;
+    Log("指令参数为%s",arg);
+  }
   return 0;
 }
 void ui_mainloop()
