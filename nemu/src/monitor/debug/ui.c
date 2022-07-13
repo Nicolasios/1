@@ -119,6 +119,7 @@ static int cmd_info(char *args)
   else if (strcmp(arg, "r") == 0)
   {
     Log("打印寄存器信息");
+    isa_reg_display();
   }
   else if (strcmp(arg, "w") == 0)
   {
