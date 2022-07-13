@@ -57,7 +57,7 @@ static struct
 
     /* TODO: Add more commands */
     {"si", "si [N]:让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
-    {"info", "info r:打印寄存器状态;info w打印监视点信息", cmd_info},
+    {"info", "info r:打印寄存器状态;info w:打印监视点信息", cmd_info},
 
 };
 
@@ -111,6 +111,20 @@ static int cmd_si_n(char *args)
 
 static int cmd_info(char *args)
 {
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL)
+  {
+    panic("请输入参数");
+  }
+  else if (arg == 'r')
+  {
+    Log("打印寄存器信息");
+  }
+  else
+  {
+    Log("打印监控点信息");
+  }
+
   return 0;
 }
 void ui_mainloop()
