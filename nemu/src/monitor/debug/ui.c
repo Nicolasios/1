@@ -160,7 +160,7 @@ static int cmd_x(char *args)
       int i;
       for (i = 0; i < char2int(n); i++, begin_addr++)
       {
-        printf("0x%08x:0x%016lx", begin_addr, paddr_read(begin_addr, READ_BATCH));
+        printf("0x%08x:0x%016lx\n", begin_addr, paddr_read(begin_addr, READ_BATCH));
       }
     }
   }
