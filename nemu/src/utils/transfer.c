@@ -1,7 +1,7 @@
 #include <common.h>
 
 void char2int(char* c){
-    Log("转换");
+    Log("%s转换",c);
     int i=0;
     while (i<20)
     {
