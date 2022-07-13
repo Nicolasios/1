@@ -10,5 +10,5 @@ void char2int(char *c)
     {
         res += (c[i] - '0') * 10;
     }
-    Log("%d\n", count);
+    Log("%d\n", res);
 }
