@@ -3,5 +3,5 @@
 
 uint64_t char2int(char *c);
 
-uint64_t char0X2int(char *c);
+uint32_t char0X2addr(char *c);
 #endif

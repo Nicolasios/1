@@ -139,6 +139,7 @@ static int cmd_x(char *args)
 
   char *n = strtok(args, " ");
   char *expr = strtok(NULL, " ");
+  uint32_t begin_addr = char0X2addr(expr);
   if (n == NULL || expr == NULL)
   {
     Log("参数缺失。指令格式为:x N EXPR(x 10 0x100000)");
@@ -146,8 +147,9 @@ static int cmd_x(char *args)
   else
   {
     int i;
-    for (i = 0; i < char2int(n); i++)
+    for (i = 0; i < char2int(n); i++, begin_addr += 4)
     {
+      paddr_read(char0X2int(expr), 4);
     }
   }
 }

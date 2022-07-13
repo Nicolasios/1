@@ -8,6 +8,7 @@ const char *regs[] = {
     "a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
     "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"};
 
+/*打印寄存器信息*/
 void isa_reg_display()
 {
   int i, j = 0;
