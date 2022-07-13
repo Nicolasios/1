@@ -12,7 +12,7 @@ void isa_reg_display()
   int i;
   for (i = 0; i < strlen(regs); i++)
   {
-    Log("%d:%s", reg_name(i), reg_d(i));
+    Log("%s:%ld", reg_name(i), reg_d(i));
   }
 }
 
