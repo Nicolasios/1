@@ -114,7 +114,7 @@ static int cmd_info(char *args)
   char *arg = strtok(NULL, " ");
   if (arg == NULL)
   {
-    Log("请输入参数");
+    Log("请输入参数:w(监视点信息)或者r(寄存器状态)");
   }
   else if (strcmp(arg, "r") == 0)
   {
