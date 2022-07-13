@@ -149,7 +149,7 @@ static int cmd_x(char *args)
   }
   else
   {
-    char *expr = strtok(NULL, " ");
+    char *expr = strtok(n, " ");
     if (expr = NULL)
     {
       Log("参数缺失。指令格式为:x N EXPR(x 10 0x100000)");
