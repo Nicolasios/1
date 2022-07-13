@@ -102,7 +102,7 @@ static int cmd_si_n(char *args)
   {
     n = char2int(arg);
   }
-  Log("单步执行%d条指令后停止", n);
+  Log("单步执行%ld条指令后停止", n);
   cpu_exec(n);
   return 0;
 }
