@@ -156,6 +156,7 @@ static int cmd_x(char *args)
       Log(FMT_WORD, paddr_read(begin_addr, READ_BATCH));
     }
   }
+  return 0;
 }
 
 void ui_mainloop()
