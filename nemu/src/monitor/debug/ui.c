@@ -158,7 +158,7 @@ static int cmd_x(char *args)
     {
       uint32_t begin_addr = char0X2addr(expr);
       int i;
-      for (i = 0; i < char2int(n); i++, begin_addr++)
+      for (i = 0; i < char2int(n); i++, begin_addr += 4)
       {
         printf("0x%08x:0x%016lx\n", begin_addr, paddr_read(begin_addr, READ_BATCH));
       }
