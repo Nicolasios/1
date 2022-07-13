@@ -13,12 +13,7 @@ void isa_reg_display()
   int i, j = 0;
   for (i = 0; i < REG_NUMBER; i++, j++)
   {
-    if (j == 4)
-    {
-      j = 0;
-      printf("\n");
-    }
-    printf("%s:%0lx", reg_name(i), reg_d(i));
+    printf("%32s%0lx\n", reg_name(i), reg_d(i));
   }
   printf("\n");
 }
