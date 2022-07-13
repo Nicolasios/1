@@ -45,6 +45,8 @@ static int cmd_help(char *args);
 static int cmd_si_n(char *args);
 
 static int cmd_info(char *args);
+
+static int cmd_x(char *args);
 static struct
 {
   char *name;
@@ -58,7 +60,7 @@ static struct
     /* TODO: Add more commands */
     {"si", "si [N]:让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
     {"info", "info r:打印寄存器状态;info w:打印监视点信息(目前只实现了info r)", cmd_info},
-
+    {"x", "x N EXPR(x 10 0x100000):将EXPR作为起始内存地址, 以十六进制形式输出连续的N个4字节", cmd_x},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -129,9 +131,18 @@ static int cmd_info(char *args)
   {
     Log("info指令不支持参数%s,仅支持 info w 与info r", arg);
   }
-
   return 0;
 }
+
+static int cmd_x(char *args)
+{
+
+  char *n = strtok(args, " ");
+  char *expr = strtok(NULL, " ");
+
+  Log("%s--%s", n, expr);
+}
+
 void ui_mainloop()
 {
   if (is_batch_mode())
