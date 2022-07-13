@@ -18,7 +18,7 @@ void isa_reg_display()
       j = 0;
       printf("\n");
     }
-    printf("%s:%160lx", reg_name(i), reg_d(i));
+    printf("%s:%0lx", reg_name(i), reg_d(i));
   }
   printf("\n");
 }
