@@ -11,4 +11,5 @@ void char2int(char *c)
         printf("%d\n", c[j] - '0');
         res += (c[j] - '0') * 10;
     }
+    printf("%d\n", res);
 }
