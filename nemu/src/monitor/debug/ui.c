@@ -142,18 +142,26 @@ static int cmd_x(char *args)
 #define READ_BATCH 4
 #endif
   char *n = strtok(args, " ");
-  char *expr = strtok(NULL, " ");
-  uint32_t begin_addr = char0X2addr(expr);
-  if (n == NULL || expr == NULL)
+
+  if (n == NULL)
   {
     Log("参数缺失。指令格式为:x N EXPR(x 10 0x100000)");
   }
   else
   {
-    int i;
-    for (i = 0; i < char2int(n); i++, begin_addr++)
+    char *expr = strtok(NULL, " ");
+    if (expr = NULL)
     {
-      Log(FMT_WORD, paddr_read(begin_addr, READ_BATCH));
+      Log("参数缺失。指令格式为:x N EXPR(x 10 0x100000)");
+    }
+    else
+    {
+      uint32_t begin_addr = char0X2addr(expr);
+      int i;
+      for (i = 0; i < char2int(n); i++, begin_addr++)
+      {
+        Log(FMT_WORD, paddr_read(begin_addr, READ_BATCH));
+      }
     }
   }
   return 0;
