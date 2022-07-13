@@ -9,7 +9,7 @@ void char2int(char *c)
     for (j = 0; j < i; j++)
     {
         printf("%d\n", c[j] - '0');
-        res += (c[j] - '0') * 10;
+        res = (c[j] - '0') + res * 10;
     }
     printf("%d\n", res);
     Log("%d", res);
