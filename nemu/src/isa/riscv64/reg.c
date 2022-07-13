@@ -10,10 +10,15 @@ const char *regs[] = {
 
 void isa_reg_display()
 {
-  int i;
-  for (i = 0; i < REG_NUMBER; i++)
+  int i, j = 0;
+  for (i = 0; i < REG_NUMBER; i++, j++)
   {
-    Log("%s:%ld", reg_name(i), reg_d(i));
+    if (j == 4)
+    {
+      j = 0;
+      printf("\n");
+    }
+    printf("%s:%ld", reg_name(i), reg_d(i));
   }
 }
 
