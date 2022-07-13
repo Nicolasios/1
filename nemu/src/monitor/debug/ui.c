@@ -92,19 +92,17 @@ static int cmd_help(char *args)
 
 static int cmd_si_n(char *args)
 {
-  Log("%s", "调用si指令");
   char *arg = strtok(NULL, " ");
+  int n;
   if (arg == NULL)
-  {
-    Log("指令参数为:1");
-  }
+    n = 1;
   else
-  {
-    int n = char2int(arg);
-    Log("指令参数为:%d", n);
-  }
+    n = char2int(arg);
+
+  Log("单步执行%d条指令后停止", n);
   return 0;
 }
+
 void ui_mainloop()
 {
   if (is_batch_mode())
