@@ -2,8 +2,8 @@
 
 void char2int(char *c)
 {
-    Log("%s转换", c);
     int i = strlen(c);
+    Log("%s转换%d", c, i);
     int count;
     int res = 0;
     for (count = 0; count < i; count++)
