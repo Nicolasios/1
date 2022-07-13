@@ -50,9 +50,9 @@ static struct
   char *description;
   int (*handler)(char *);
 } cmd_table[] = {
-    {"help", "Display informations about all supported commands", cmd_help},
-    {"c", "Continue the execution of the program", cmd_c},
-    {"q", "Exit NEMU", cmd_q},
+    {"help", "显示所有支持的指令的概要信息", cmd_help},
+    {"c", "继续运行程序", cmd_c},
+    {"q", "退出 NEMU", cmd_q},
 
     /* TODO: Add more commands */
     {"si", "让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
@@ -93,13 +93,17 @@ static int cmd_help(char *args)
 static int cmd_si_n(char *args)
 {
   char *arg = strtok(NULL, " ");
-  int n;
+  uint64_t n;
   if (arg == NULL)
+  {
     n = 1;
+  }
   else
+  {
     n = char2int(arg);
-
+  }
   Log("单步执行%d条指令后停止", n);
+  cpu_exec(n);
   return 0;
 }
 
