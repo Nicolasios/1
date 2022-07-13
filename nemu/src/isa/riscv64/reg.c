@@ -18,8 +18,9 @@ void isa_reg_display()
       j = 0;
       printf("\n");
     }
-    printf("%s:%ld\t", reg_name(i), reg_d(i));
+    printf("%s:%0xld\t\t", reg_name(i), reg_d(i));
   }
+  printf("\n");
 }
 
 word_t isa_reg_str2val(const char *s, bool *success)
