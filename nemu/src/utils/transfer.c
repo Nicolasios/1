@@ -8,7 +8,6 @@ void char2int(char *c)
     int res = 0;
     for (count = 0; count < i; count++)
     {
-        res += (c[i] - '0') * 10;
         Log("%d\n", c[i] - '0');
     }
     Log("%d\n", res);
