@@ -55,7 +55,7 @@ static struct
     {"q", "Exit NEMU", cmd_q},
 
     /* TODO: Add more commands */
-    {"si","让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1",cmd_si_n},
+    {"si", "让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
 
 };
 
@@ -90,15 +90,18 @@ static int cmd_help(char *args)
   return 0;
 }
 
-static int cmd_si_n(char *args){
-  Log("%s","调用si指令");
+static int cmd_si_n(char *args)
+{
+  Log("%s", "调用si指令");
   char *arg = strtok(NULL, " ");
-  char2int(arg);
-  if(arg == NULL){
+  if (arg == NULL)
+  {
     Log("指令参数为:1");
   }
-  else{
-    Log("指令参数为:%s",arg);
+  else
+  {
+    int n = char2int(arg);
+    Log("指令参数为:%d", n);
   }
   return 0;
 }

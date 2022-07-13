@@ -1,8 +1,7 @@
 #include <common.h>
 
-void char2int(char *c)
+int char2int(char *c)
 {
-    Log("%s转换", c);
     int i = strlen(c);
     int j;
     int res = 0;
@@ -11,6 +10,5 @@ void char2int(char *c)
         printf("%d\n", c[j] - '0');
         res = (c[j] - '0') + res * 10;
     }
-    printf("%d\n", res);
-    Log("%d", res);
+    return res;
 }
