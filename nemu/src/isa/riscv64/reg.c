@@ -18,7 +18,7 @@ void isa_reg_display()
       j = 0;
       printf("\n");
     }
-    printf("%s:%ld", reg_name(i), reg_d(i));
+    printf("%s:%ld\t", reg_name(i), reg_d(i));
   }
 }
 
