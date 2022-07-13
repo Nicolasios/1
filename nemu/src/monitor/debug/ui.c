@@ -114,15 +114,19 @@ static int cmd_info(char *args)
   char *arg = strtok(NULL, " ");
   if (arg == NULL)
   {
-    panic("请输入参数");
+    Log("请输入参数");
   }
-  else if (arg == 'r')
+  else if (strcmp(arg, 'r'))
   {
     Log("打印寄存器信息");
   }
-  else
+  else if (strcmp(arg, 'w'))
   {
     Log("打印监控点信息");
+  }
+  else
+  {
+    Log("info指令不支持参数%s,仅支持 info w 与info r", arg);
   }
 
   return 0;
