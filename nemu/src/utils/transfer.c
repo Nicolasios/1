@@ -2,13 +2,11 @@
 
 void char2int(char *c)
 {
+    Log("%s转换", c);
     int i = strlen(c);
-    Log("%s转换%d", c, i);
-    int count;
-    int res = 0;
-    for (count = 0; count < i; count++)
+    int j;
+    for (j = 0; j < i; j++)
     {
-        Log("%d\n", c[i] - '0');
+        printf("%d\n", c[j] - '0');
     }
-    Log("%d\n", res);
 }
