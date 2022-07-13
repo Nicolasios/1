@@ -1,7 +1,6 @@
 #include <isa.h>
 #include "expr.h"
 #include "watchpoint.h"
-
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -94,7 +93,7 @@ static int cmd_help(char *args)
 static int cmd_si_n(char *args){
   Log("%s","调用si指令");
   char *arg = strtok(NULL, " ");
-
+  char2int(arg);
   if(arg == NULL){
     Log("指令参数为:1");
   }
