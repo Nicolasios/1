@@ -6,7 +6,7 @@ void char2int(char* c){
     while (i<20)
     {
         i++;
-        printf("%c\n",c[i]);
+        printf("%d\n",c[i]-'0');
     }
     
 }
