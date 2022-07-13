@@ -44,6 +44,7 @@ static int cmd_help(char *args);
 
 static int cmd_si_n(char *args);
 
+static int cmd_info(char *args);
 static struct
 {
   char *name;
@@ -55,7 +56,8 @@ static struct
     {"q", "退出 NEMU", cmd_q},
 
     /* TODO: Add more commands */
-    {"si", "让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
+    {"si", "si [N]\n让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
+    {"info", "info r:打印寄存器状态\ninfo w打印监视点信息", cmd_info},
 
 };
 
@@ -107,6 +109,10 @@ static int cmd_si_n(char *args)
   return 0;
 }
 
+static int cmd_info(char *args)
+{
+  return 0;
+}
 void ui_mainloop()
 {
   if (is_batch_mode())
