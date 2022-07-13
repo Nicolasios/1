@@ -57,7 +57,7 @@ static struct
 
     /* TODO: Add more commands */
     {"si", "si [N]:让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
-    {"info", "info r:打印寄存器状态;info w:打印监视点信息", cmd_info},
+    {"info", "info r:打印寄存器状态;info w:打印监视点信息(目前只实现了info r)", cmd_info},
 
 };
 
