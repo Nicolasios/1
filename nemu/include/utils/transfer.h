@@ -2,4 +2,6 @@
 #define TRANSFER_H__
 
 uint64_t char2int(char *c);
+
+uint64_t char0X2int(char *c);
 #endif

@@ -139,8 +139,17 @@ static int cmd_x(char *args)
 
   char *n = strtok(args, " ");
   char *expr = strtok(NULL, " ");
-
-  Log("%s--%s", n, expr);
+  if (n == NULL || expr == NULL)
+  {
+    Log("参数缺失。指令格式为:x N EXPR(x 10 0x100000)");
+  }
+  else
+  {
+    int i;
+    for (i = 0; i < char2int(n); i++)
+    {
+    }
+  }
 }
 
 void ui_mainloop()
