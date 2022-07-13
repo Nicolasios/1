@@ -157,6 +157,7 @@ static int cmd_x(char *args)
     else
     {
       uint32_t begin_addr = char0X2addr(expr);
+      Log("%d", begin_addr);
       int i;
       for (i = 0; i < char2int(n); i++, begin_addr++)
       {
