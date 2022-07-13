@@ -157,11 +157,10 @@ static int cmd_x(char *args)
     else
     {
       uint32_t begin_addr = char0X2addr(expr);
-      Log("%d", begin_addr);
       int i;
       for (i = 0; i < char2int(n); i++, begin_addr++)
       {
-        Log(FMT_WORD, paddr_read(begin_addr, READ_BATCH));
+        printf("0x%08x:0x%016lx", begin_addr, paddr_read(begin_addr, READ_BATCH));
       }
     }
   }
