@@ -116,11 +116,11 @@ static int cmd_info(char *args)
   {
     Log("请输入参数");
   }
-  else if (strcmp(arg, 'r'))
+  else if (strcmp(arg, (char)'r'))
   {
     Log("打印寄存器信息");
   }
-  else if (strcmp(arg, 'w'))
+  else if (strcmp(arg, (char)'w'))
   {
     Log("打印监控点信息");
   }
