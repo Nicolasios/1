@@ -3,5 +3,8 @@
 void char2int(char* c){
     Log("%s转换",c);
     int i = strlen(c);
-    Log("字符长度为:%d",i);
+    int j;
+    for(j=0;j<i;j++){
+        printf("%d\n",c[j]-'0');
+    }
 }
