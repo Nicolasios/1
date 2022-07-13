@@ -136,7 +136,11 @@ static int cmd_info(char *args)
 
 static int cmd_x(char *args)
 {
-
+#ifdef ISA64
+#define READ_BATCH 8
+#else
+#define READ_BATCH 4
+#endif
   char *n = strtok(args, " ");
   char *expr = strtok(NULL, " ");
   uint32_t begin_addr = char0X2addr(expr);
@@ -147,9 +151,9 @@ static int cmd_x(char *args)
   else
   {
     int i;
-    for (i = 0; i < char2int(n); i++, begin_addr += 4)
+    for (i = 0; i < char2int(n); i++, begin_addr++)
     {
-      paddr_read(char0X2int(expr), 4);
+      Log(FMT_WORD, paddr_read(begin_addr, READ_BATCH));
     }
   }
 }
