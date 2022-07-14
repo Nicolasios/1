@@ -9,26 +9,89 @@
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
-"#include <stdio.h>\n"
-"int main() { "
-"  unsigned result = %s; "
-"  printf(\"%%u\", result); "
-"  return 0; "
-"}";
+    "#include <stdio.h>\n"
+    "int main() { "
+    "  unsigned result = %s; "
+    "  printf(\"%%u\", result); "
+    "  return 0; "
+    "}";
 
-static inline void gen_rand_expr() {
-  buf[0] = '\0';
+//生成0-n的随机数
+uint32_t choose(uint32_t n)
+{
+  uint32_t res = rand() % (n + 1);
+  return res;
+}
+void gen_num()
+{
+  int a = choose(10);
+  char *number[11] = {
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"};
+  strcat(buf, number[a]);
+  printf("number:%s a:%d buf:%s\n", number[a], a, buf);
 }
 
-int main(int argc, char *argv[]) {
+void gen_left()
+{
+  strcat(buf, "(");
+  printf("left:( buf:%s\n", buf);
+}
+void gen_right()
+{
+  strcat(buf, ")");
+  printf("right:) buf:%s\n", buf);
+}
+void gen_rand_op()
+{
+  int a = choose(3);
+  char *op[4] = {"+", "-", "*", "/"};
+  strcat(buf, op[a]);
+  printf("op:%s a:%d buf:%s\n", op[a], a, buf);
+}
+
+static inline void gen_rand_expr()
+{
+  int a = choose(2);
+  switch (a)
+  {
+  case 0:
+    gen_num();
+    break;
+  case 1:
+    gen_left();
+    gen_rand_expr();
+    gen_right();
+    break;
+  case 2:
+    gen_rand_expr();
+    gen_rand_op();
+    gen_rand_expr();
+    break;
+  }
+}
+
+int main(int argc, char *argv[])
+{
   int seed = time(0);
   srand(seed);
   int loop = 1;
-  if (argc > 1) {
+  if (argc > 1)
+  {
     sscanf(argv[1], "%d", &loop);
   }
   int i;
-  for (i = 0; i < loop; i ++) {
+  for (i = 0; i < loop; i++)
+  {
     gen_rand_expr();
 
     sprintf(code_buf, code_format, buf);
@@ -39,7 +102,8 @@ int main(int argc, char *argv[]) {
     fclose(fp);
 
     int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
-    if (ret != 0) continue;
+    if (ret != 0)
+      continue;
 
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);

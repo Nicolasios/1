@@ -50,6 +50,29 @@ static struct rule
 
 static regex_t re[NR_REGEX] = {};
 
+static bool make_token(char *e);
+word_t expr(char *e, bool *success);
+/* Rules are used for many times.
+ * Therefore we compile them only once before any usage.
+ */
+void init_regex()
+{
+  int i;
+  char error_msg[128];
+  int ret;
+
+  for (i = 0; i < NR_REGEX; i++)
+  {
+    //编译正则匹配表达式到一个形式re
+    ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
+    if (ret != 0)
+    {
+      regerror(ret, &re[i], error_msg, 128);
+      panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
+    }
+  }
+}
+
 typedef struct token
 {
   int type;
@@ -132,6 +155,7 @@ static bool make_token(char *e)
           nr_token--;
           break;
         }
+
         break;
       }
     }
@@ -153,34 +177,7 @@ word_t expr(char *e, bool *success)
     *success = false;
     return 0;
   }
+
   /* TODO: Insert codes to evaluate the expression. */
-
   return 0;
-}
-
-/* Rules are used for many times.
- * Therefore we compile them only once before any usage.
- */
-void init_regex()
-{
-  int i;
-  char error_msg[128];
-  int ret;
-
-  for (i = 0; i < NR_REGEX; i++)
-  {
-    //编译正则匹配表达式到一个形式re
-    ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
-    if (ret != 0)
-    {
-      regerror(ret, &re[i], error_msg, 128);
-      panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
-    }
-  }
-  char e[128] = "0x1111 / ( 1 + 2 / ( 3 - 1 ))";
-  make_token(e);
-  for (int i = 0; i < 32; i++)
-  {
-    printf("%d:::%s\n", tokens[i].type, tokens[i].str);
-  }
 }
