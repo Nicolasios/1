@@ -165,7 +165,7 @@ static int cmd_x(char *args)
   paddr_t begin_addr = strtol(EXPR, &ptr, 16);
   // printf(":", begin_addr);
   int i;
-  for (i = 0; i < n; i++, begin_addr += READ_BATCH)
+  for (i = 0; i < n; i++)
   {
     printf("batch:%d   0x%08x:0x%08lx\n", READ_BATCH, begin_addr + i * READ_BATCH, paddr_read(begin_addr + i * READ_BATCH, READ_BATCH));
   }
