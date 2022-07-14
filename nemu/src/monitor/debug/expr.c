@@ -56,6 +56,7 @@ void init_regex()
 
   for (i = 0; i < NR_REGEX; i++)
   {
+    //编译正则匹配表达式到一个形式re
     ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
     if (ret != 0)
     {
@@ -87,6 +88,7 @@ static bool make_token(char *e)
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i++)
     {
+      //执行匹配
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0)
       {
         char *substr_start = e + position;
@@ -96,14 +98,18 @@ static bool make_token(char *e)
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
-
-        /* TODO: Now a new token is recognized with rules[i]. Add codes
+        nr_token++;
+        /*
+         * TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
 
         switch (rules[i].token_type)
         {
+        case TK_DIV:
+          // tokens[nr_token].str = substr_start;
+          break;
         default:
           TODO();
         }
