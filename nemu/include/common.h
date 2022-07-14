@@ -5,7 +5,7 @@
 //#define DIFF_TEST
 
 #ifdef __ISA_riscv64__
-# define ISA64
+#define ISA64
 #endif
 
 #if _SHARE

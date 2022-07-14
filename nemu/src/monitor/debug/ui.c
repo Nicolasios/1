@@ -141,30 +141,39 @@ static int cmd_x(char *args)
 #else
 #define READ_BATCH 4
 #endif
-  char *n = strtok(args, " ");
+  char *arg = strtok(args, " ");
+  if (arg == NULL)
+  {
+    Log("参数 N EXPR 缺失。指令格式为:x N EXPR(x 10 0x100000)");
+    return 1;
+  }
+  int n = atoi(arg);
+  char *EXPR = strtok(NULL, " ");
+  if (EXPR == NULL)
+  {
+    Log("参数 EXPR 缺失。指令格式为:x N EXPR(x 10 0x100000)");
+    return 1;
+  }
+  if (strtok(NULL, " ") != NULL)
+  {
+    Log("参数过多。指令格式为:x N EXPR(x 10 0x100000)");
+    return 1;
+  }
 
-  if (n == NULL)
+  //获取地址
+  char *ptr;
+  paddr_t begin_addr = strtol(EXPR, &ptr, 16);
+  int i;
+  for (i = 0; i < n; i++, begin_addr += READ_BATCH)
   {
-    Log("参数缺失。指令格式为:x N EXPR(x 10 0x100000)");
-  }
-  else
-  {
-    char *expr = strtok(NULL, " ");
-    if (expr == NULL)
+    word_t data = paddr_read(begin_addr + i * READ_BATCH, READ_BATCH);
+    printf("0x%08x:", begin_addr + i * READ_BATCH);
+    for (int j = 0; j < READ_BATCH; j++)
     {
-      Log("参数缺失。指令格式为:x N EXPR(x 10 0x100000)");
-    }
-    else
-    {
-      uint32_t begin_addr = char0X2addr(expr);
-      int i;
-      for (i = 0; i < char2int(n); i++, begin_addr += READ_BATCH)
-      {
-        printf("0x%08x:0x%016lx\n", begin_addr, paddr_read(begin_addr, READ_BATCH));
-      }
+      printf("0x%02lx ", data & 0xff);
+      data = data >> 8;
     }
   }
-  return 0;
 }
 
 void ui_mainloop()
