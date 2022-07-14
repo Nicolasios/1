@@ -167,7 +167,7 @@ static int cmd_x(char *args)
   int i;
   for (i = 0; i < n; i++, begin_addr += READ_BATCH)
   {
-    printf("  0x%08lx  ", paddr_read(begin_addr + i * READ_BATCH, READ_BATCH));
+    printf(FMT_WORD, paddr_read(begin_addr + i * READ_BATCH, READ_BATCH));
   }
   printf("\n");
   return 1;
