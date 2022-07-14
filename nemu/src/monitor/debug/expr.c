@@ -17,7 +17,9 @@ enum
   TK_DIV,
   TK_LEFT,
   TK_RIGHT,
-  TK_NUMBER,
+  TK_NUMBER10,
+  TK_NUMBER16,
+  TK_REG,
 };
 
 static struct rule
@@ -30,15 +32,17 @@ static struct rule
      * Pay attention to the precedence level of different rules.
      */
 
-    {" +", TK_NOTYPE}, //
-    {"\\+", TK_PLUS},  // plus
-    {"==", TK_EQ},     // equal
-    {"-", TK_MINUS},
-    {"\\*", TK_MUL},
-    {"/", TK_DIV},
-    {"\\(", TK_LEFT},
-    {"\\)", TK_RIGHT},
-    {"[0-9]+", TK_NUMBER},
+    {" +", TK_NOTYPE},                  // 空格
+    {"\\+", TK_PLUS},                   // +
+    {"==", TK_EQ},                      // ==
+    {"-", TK_MINUS},                    // -
+    {"\\*", TK_MUL},                    // *
+    {"/", TK_DIV},                      // /
+    {"\\(", TK_LEFT},                   // (
+    {"\\)", TK_RIGHT},                  // )
+    {"0[xX][0-9a-fA-F]+", TK_NUMBER16}, //十六进制整数,在这里做了一个小设计 是的十六进制数先被识别
+    {"[0-9]+", TK_NUMBER10},            //十进制整数
+    {"[\\$astrg][ap0-9]", TK_REG},      //寄存器编号
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -138,6 +142,7 @@ word_t expr(char *e, bool *success)
 
   /* TODO: Insert codes to evaluate the expression. */
   TODO();
+  printf("1+1+2+(0X1223abc31+222)");
 
   return 0;
 }
