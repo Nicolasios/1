@@ -137,9 +137,9 @@ static int cmd_info(char *args)
 static int cmd_x(char *args)
 {
 #ifdef ISA64
-#define READ_BATCH 8
-#else
 #define READ_BATCH 4
+#else
+#define READ_BATCH 2
 #endif
   char *arg = strtok(args, " ");
   if (arg == NULL)
