@@ -163,13 +163,12 @@ static int cmd_x(char *args)
   //获取地址
   char *ptr;
   paddr_t begin_addr = strtol(EXPR, &ptr, 16);
-  // printf(":", begin_addr);
+  printf("   Addr   |   data   \n");
   int i;
   for (i = 0; i < n; i++)
   {
     printf("0x%08x:0x%08lx\n", begin_addr + i * READ_BATCH, paddr_read(begin_addr + i * READ_BATCH, READ_BATCH));
   }
-  printf("\n");
   return 1;
 }
 
