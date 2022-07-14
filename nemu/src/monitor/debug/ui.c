@@ -170,6 +170,7 @@ static int cmd_x(char *args)
     printf("  0x%08lx  ", paddr_read(begin_addr + i * READ_BATCH, READ_BATCH));
   }
   printf("\n");
+  return 1;
 }
 
 void ui_mainloop()
