@@ -4,6 +4,7 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
+#include <string.h>
 
 enum
 {
@@ -49,27 +50,6 @@ static struct rule
 
 static regex_t re[NR_REGEX] = {};
 
-/* Rules are used for many times.
- * Therefore we compile them only once before any usage.
- */
-void init_regex()
-{
-  int i;
-  char error_msg[128];
-  int ret;
-
-  for (i = 0; i < NR_REGEX; i++)
-  {
-    //编译正则匹配表达式到一个形式re
-    ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
-    if (ret != 0)
-    {
-      regerror(ret, &re[i], error_msg, 128);
-      panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
-    }
-  }
-}
-
 typedef struct token
 {
   int type;
@@ -111,13 +91,47 @@ static bool make_token(char *e)
 
         switch (rules[i].token_type)
         {
+        case TK_REG:
+          tokens[nr_token].type = TK_REG;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_EQ:
+          tokens[nr_token].type = TK_EQ;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_PLUS:
+          tokens[nr_token].type = TK_PLUS;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_MINUS:
+          tokens[nr_token].type = TK_MINUS;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
         case TK_DIV:
-          // tokens[nr_token].str = substr_start;
+          tokens[nr_token].type = TK_DIV;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_LEFT:
+          tokens[nr_token].type = TK_LEFT;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_RIGHT:
+          tokens[nr_token].type = TK_RIGHT;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_NUMBER10:
+          tokens[nr_token].type = TK_NUMBER10;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_NUMBER16:
+          tokens[nr_token].type = TK_NUMBER16;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
           break;
         default:
-          TODO();
+          //如果匹配到空白符就丢弃
+          nr_token--;
+          break;
         }
-
         break;
       }
     }
@@ -139,10 +153,34 @@ word_t expr(char *e, bool *success)
     *success = false;
     return 0;
   }
-
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-  printf("1+1+2+(0X1223abc31+222)");
 
   return 0;
+}
+
+/* Rules are used for many times.
+ * Therefore we compile them only once before any usage.
+ */
+void init_regex()
+{
+  int i;
+  char error_msg[128];
+  int ret;
+
+  for (i = 0; i < NR_REGEX; i++)
+  {
+    //编译正则匹配表达式到一个形式re
+    ret = regcomp(&re[i], rules[i].regex, REG_EXTENDED);
+    if (ret != 0)
+    {
+      regerror(ret, &re[i], error_msg, 128);
+      panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
+    }
+  }
+  char e[128] = "0x1111 / ( 1 + 2 / ( 3 - 1 ))";
+  make_token(e);
+  for (int i = 0; i < 32; i++)
+  {
+    printf("%d:::%s\n", tokens[i].type, tokens[i].str);
+  }
 }
