@@ -5,6 +5,8 @@
  */
 #include <regex.h>
 #include <string.h>
+#include <debug.h>
+#include <stdlib.h>
 
 enum
 {
@@ -49,9 +51,19 @@ static struct rule
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
 
 static regex_t re[NR_REGEX] = {};
-
+//递归求值
+u_int32_t eval(int p, int q);
+//生成tokens
 static bool make_token(char *e);
-word_t expr(char *e, bool *success);
+//判断表达式的正确性
+word_t expr(char *e, bool *success, int res);
+//获取主操作符的位置
+void getmainop(int p, int q, int *op_type, int *op);
+//检查前后括号是否配对
+bool check_parentheses(int p, int q);
+//检查表达式是否合法
+bool check_correct(int p, int q);
+
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
@@ -79,7 +91,7 @@ typedef struct token
   char str[32];
 } Token;
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[256] __attribute__((used)) = {};
 static int nr_token __attribute__((used)) = 0;
 
 static bool make_token(char *e)
@@ -170,7 +182,7 @@ static bool make_token(char *e)
   return true;
 }
 
-word_t expr(char *e, bool *success)
+word_t expr(char *e, bool *success, int res)
 {
   if (!make_token(e))
   {
@@ -179,5 +191,156 @@ word_t expr(char *e, bool *success)
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+  if (eval(0, nr_token) != res)
+  {
+    *success = false;
+    return 0;
+  }
+  *success = true;
   return 0;
+}
+
+bool check_parenthese(int p, int q)
+{
+  if (tokens[p].type != TK_LEFT || tokens[q].type != TK_RIGHT)
+  {
+    return false;
+  }
+  else
+  {
+    int flag = 0;
+    for (int i = p; i <= q; i++)
+    {
+      if (tokens[i].type == TK_LEFT)
+      {
+        flag++;
+      }
+      if (tokens[i].type == TK_RIGHT)
+      {
+        flag--;
+      }
+      if (flag == 0 && i < q)
+      {
+        return false;
+      }
+    }
+    return true;
+  }
+}
+
+bool check_correct(int p, int q)
+{
+  int flag = 0;
+  for (int i = p; i <= q; i++)
+  {
+    if (tokens[i].type == TK_LEFT)
+    {
+      flag++;
+    }
+    if (tokens[i].type == TK_RIGHT)
+    {
+      flag--;
+    }
+  }
+  if (flag != 0)
+  {
+    return false;
+  }
+  return true;
+}
+
+void getmainop(int p, int q, int *op_type, int *op)
+{
+  int flag = 0;
+  int prior = 0;
+  int position = 0;
+  for (int i = p; i <= q; i++)
+  {
+    if (tokens[i].type == TK_LEFT)
+    {
+      flag++;
+    }
+    if (tokens[i].type == TK_RIGHT)
+    {
+      flag--;
+    }
+    switch (tokens[i].type)
+    {
+    case TK_DIV:
+      if (prior == 0 && flag == 0)
+      {
+        prior = 1;
+        position = i;
+      }
+      break;
+    case TK_MUL:
+      if (prior == 0 && flag == 0)
+      {
+        prior = 1;
+        position = i;
+      }
+      break;
+    case TK_PLUS:
+      if (prior != 2 && flag == 0)
+      {
+        prior = 2;
+        position = i;
+      }
+      break;
+    case TK_MINUS:
+      if (prior != 2 && flag == 0)
+      {
+        prior = 2;
+        position = i;
+      }
+      break;
+    default:
+      break;
+    }
+  }
+  *op = position;
+  *op_type = tokens[position].type;
+}
+
+u_int32_t eval(int p, int q)
+{
+  if (p > q)
+  {
+    Assert(0, "bad expression");
+  }
+  else if (p == q)
+  {
+    //单一的数字
+    return atoi(tokens[p].str);
+  }
+  else if (check_parentheses(p, q) == true)
+  {
+    return eval(p + 1, q - 1);
+  }
+  else if (check_correct(p, q) == true)
+  {
+    char op_type = ' ';
+    int op = 0;
+    getmainop(p, q, &op_type, &op);
+    uint32_t val1 = eval(p, op - 1);
+    uint32_t val2 = eval(op + 1, q);
+
+    switch (op_type)
+    {
+    case '+':
+      return val1 + val2;
+    case '-':
+      return val1 - val2;
+    case '*':
+      return val1 * val2;
+    case '/':
+      return val1 / val2;
+    default:
+      assert(0);
+    }
+  }
+  else
+  {
+    Assert(0, "unfair expression");
+  }
 }

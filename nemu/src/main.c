@@ -1,11 +1,14 @@
 void init_monitor(int, char *[]);
 void engine_start();
 int is_exit_status_bad();
-
-int main(int argc, char *argv[]) {
+void expr_test();
+int main(int argc, char *argv[])
+{
   /* Initialize the monitor. */
   init_monitor(argc, argv);
 
+  /*表达式求值测试*/
+  expr_test();
   /* Start engine. */
   engine_start();
 

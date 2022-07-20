@@ -24,9 +24,8 @@ uint32_t choose(uint32_t n)
 }
 void gen_num()
 {
-  int a = choose(10);
-  char *number[11] = {
-      "0",
+  int a = choose(9);
+  char *number[10] = {
       "1",
       "2",
       "3",
@@ -38,25 +37,21 @@ void gen_num()
       "9",
       "10"};
   strcat(buf, number[a]);
-  printf("number:%s a:%d buf:%s\n", number[a], a, buf);
 }
 
 void gen_left()
 {
   strcat(buf, "(");
-  printf("left:( buf:%s\n", buf);
 }
 void gen_right()
 {
   strcat(buf, ")");
-  printf("right:) buf:%s\n", buf);
 }
 void gen_rand_op()
 {
   int a = choose(3);
   char *op[4] = {"+", "-", "*", "/"};
   strcat(buf, op[a]);
-  printf("op:%s a:%d buf:%s\n", op[a], a, buf);
 }
 
 static inline void gen_rand_expr()
@@ -113,6 +108,7 @@ int main(int argc, char *argv[])
     pclose(fp);
 
     printf("%u %s\n", result, buf);
+    memset(buf, '\0', 65536);
   }
   return 0;
 }
