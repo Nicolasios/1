@@ -107,6 +107,7 @@ static inline void expr_test()
 {
   bool success = NULL;
   expr("1+2+3+1", &success, 7);
+  Log("success?:%d", success);
 }
 
 void init_monitor(int argc, char *argv[])
