@@ -164,7 +164,7 @@ static bool make_token(char *e)
           break;
         default:
           //如果匹配到空白符就丢弃
-          Log("遇到了空白符");
+          Log("遇到了空白符%d", rules[i].token_type);
           nr_token--;
           break;
         }
