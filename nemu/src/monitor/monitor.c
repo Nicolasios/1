@@ -114,15 +114,12 @@ static inline void expr_test()
   fp = fopen("./tools/gen-expr/input", "r");
   while (2 == fscanf(fp, "%d %s", &res, e))
   {
-    printf("%s = %d", e, res);
+    printf("%s = %d\n", e, res);
     expr(e, &success[count], res);
+    printf("success:%d\n", success[count]);
     count++;
   }
   fclose(fp);
-  for (int i = 0; i < count; i++)
-  {
-    printf("success:%d ", success[i]);
-  }
 }
 
 void init_monitor(int argc, char *argv[])
