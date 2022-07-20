@@ -324,7 +324,7 @@ u_int32_t eval(int p, int q)
     int op_type;
     int op = 0;
     getmainop(p, q, &op_type, &op);
-    printf("main op p :%d,main op q :%d ,main op position:%d\n", p, q, op);
+    // printf("main op p :%d,main op q :%d ,main op position:%d\n", p, q, op);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
     switch (op_type)
