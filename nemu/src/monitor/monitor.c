@@ -105,9 +105,16 @@ static inline void parse_args(int argc, char *argv[])
 
 static inline void expr_test()
 {
-  bool success = NULL;
-  expr("1+2+3+1", &success, 7);
-  Log("success?:%d", success);
+  FILE *fp = NULL;
+  unsigned int tmp = 0;
+
+  fp = fopen("./tools/gen-expr/input", "r");
+  while (!feof(fp))
+  {
+    fscanf(fp, "%x\r\n", &tmp);
+    printf("tmp:%x\n", tmp);
+  }
+  fclose(fp);
 }
 
 void init_monitor(int argc, char *argv[])
