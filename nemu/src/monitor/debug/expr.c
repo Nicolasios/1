@@ -101,11 +101,8 @@ static bool make_token(char *e)
   regmatch_t pmatch;
 
   nr_token = 0;
-  int j = 0;
   while (e[position] != '\0')
   {
-    j++;
-    Log("第%d次匹配", j);
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i++)
     {
@@ -165,9 +162,13 @@ static bool make_token(char *e)
           tokens[nr_token].type = TK_NUMBER16;
           strncpy(tokens[nr_token].str, substr_start, substr_len);
           break;
+        case TK_MUL:
+          tokens[nr_token].type = TK_MUL;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
         default:
           //如果匹配到空白符就丢弃
-          Log("遇到了空白符%d子字符串:%s当前字符:%c", rules[i].token_type, substr_start, e[position]);
+          // Log("遇到了空白符%d子字符串:%s当前字符:%c", rules[i].token_type, substr_start, e[position]);
           nr_token--;
           break;
         }
