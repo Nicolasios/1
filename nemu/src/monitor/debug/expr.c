@@ -199,7 +199,7 @@ word_t expr(char *e, bool *success, int res)
   // Log("tokens:%d", nr_token);
   int cal = eval(1, nr_token);
 
-  printf("res:%d  cal:%d", res, cal);
+  printf("res:%d  cal:%d\n", res, cal);
   if (cal != res)
   {
     *success = false;
