@@ -7,8 +7,6 @@ int main(int argc, char *argv[])
   /* Initialize the monitor. */
   init_monitor(argc, argv);
 
-  /*表达式求值测试*/
-  expr_test();
   /* Start engine. */
   engine_start();
 
