@@ -330,13 +330,13 @@ u_int32_t eval(int p, int q)
     printf("op_type:%d\n", op_type);
     switch (op_type)
     {
-    case '+':
+    case TK_PLUS:
       return val1 + val2;
-    case '-':
+    case TK_MINUS:
       return val1 - val2;
-    case '*':
+    case TK_MUL:
       return val1 * val2;
-    case '/':
+    case TK_DIV:
       return val1 / val2;
     default:
       assert(0);
