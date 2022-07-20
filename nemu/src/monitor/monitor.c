@@ -114,6 +114,7 @@ static inline void expr_test()
   fp = fopen("./tools/gen-expr/input", "r");
   while (2 == fscanf(fp, "%d %s", &res, e))
   {
+    printf("第%d个计算式", count + 1);
     printf("%s = %d\n", e, res);
     expr(e, &success[count], res);
     printf("success:%d\n", success[count]);
