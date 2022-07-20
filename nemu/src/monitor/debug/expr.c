@@ -263,7 +263,7 @@ void getmainop(int p, int q, int *op_type, int *op)
   int flag = 0;
   int prior = 0;
   int position = 0;
-  for (int i = q; i >= q; i--)
+  for (int i = q; i >= p; i--)
   {
     // printf("type:%d\n", tokens[i].type);
     if (tokens[i].type == TK_LEFT)
