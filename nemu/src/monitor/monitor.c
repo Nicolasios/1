@@ -112,7 +112,7 @@ static inline void expr_test()
   bool success[256];
   int count = 0;
   fp = fopen("./tools/gen-expr/input", "r");
-  while (2 == fscanf(fp, "%d %s", res, e))
+  while (2 == fscanf(fp, "%d %s", &res, e))
   {
     printf("%s = %d", e, res);
     expr(e, &success[count], res);
