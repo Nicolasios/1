@@ -101,9 +101,11 @@ static bool make_token(char *e)
   regmatch_t pmatch;
 
   nr_token = 0;
-
+  int j = 0;
   while (e[position] != '\0')
   {
+    j++;
+    Log("第%d次匹配", j);
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i++)
     {
