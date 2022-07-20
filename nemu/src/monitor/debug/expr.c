@@ -10,7 +10,7 @@
 
 enum
 {
-  TK_NOTYPE = 260,
+  TK_NOTYPE = 261,
   TK_EQ,
 
   /* TODO: Add more token types */
