@@ -106,15 +106,24 @@ static inline void parse_args(int argc, char *argv[])
 static inline void expr_test()
 {
   FILE *fp = NULL;
-  unsigned int tmp = 0;
 
+  int res;
+  char e[256];
+  bool success[256];
+  int count = 0;
   fp = fopen("./tools/gen-expr/input", "r");
   while (!feof(fp))
   {
-    fscanf(fp, "%x\r\n", &tmp);
-    printf("tmp:%x\n", tmp);
+    fscanf(fp, "%d %s", res, e);
+    printf("%s = %d", e, res);
+    expr(e, &success[count], res);
+    count++;
   }
   fclose(fp);
+  for (int i = 0; i < count; i++)
+  {
+    printf("success:%d ", success[i]);
+  }
 }
 
 void init_monitor(int argc, char *argv[])
