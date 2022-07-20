@@ -191,7 +191,7 @@ word_t expr(char *e, bool *success, int res)
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  // Log("tokens:%d", nr_token);
+  Log("tokens:%d", nr_token);
   if (eval(1, nr_token) != res)
   {
     *success = false;
