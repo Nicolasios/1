@@ -60,7 +60,7 @@ word_t expr(char *e, bool *success, int res);
 //获取主操作符的位置
 void getmainop(int p, int q, int *op_type, int *op);
 //检查前后括号是否配对
-bool check_parentheses(int p, int q);
+bool check_parenthese(int p, int q);
 //检查表达式是否合法
 bool check_correct(int p, int q);
 
@@ -313,7 +313,7 @@ u_int32_t eval(int p, int q)
     //单一的数字
     return atoi(tokens[p].str);
   }
-  else if (check_parentheses(p, q) == true)
+  else if (check_parenthese(p, q) == true)
   {
     return eval(p + 1, q - 1);
   }
