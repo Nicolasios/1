@@ -335,6 +335,7 @@ u_int32_t eval(int p, int q)
     printf("main op p :%d,main op q :%d ,main op position:%d\n", p, q, op);
     uint32_t val1 = eval(p, op - 1);
     uint32_t val2 = eval(op + 1, q);
+    printf("val1:%d  val2%d\n", val1, val2);
     switch (op_type)
     {
     case TK_PLUS:
