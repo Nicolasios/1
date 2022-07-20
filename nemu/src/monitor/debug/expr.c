@@ -319,7 +319,7 @@ u_int32_t eval(int p, int q)
   }
   else if (check_correct(p, q) == true)
   {
-    char op_type = ' ';
+    int op_type;
     int op = 0;
     getmainop(p, q, &op_type, &op);
     uint32_t val1 = eval(p, op - 1);
