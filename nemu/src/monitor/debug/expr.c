@@ -23,6 +23,14 @@ enum
   TK_NUMBER10,
   TK_NUMBER16,
   TK_REG,
+  TK_NEQ,
+  TK_AND,
+  TK_BEQ,
+  TK_SEQ,
+  TK_B,
+  TK_S,
+  TK_POINT,
+  TK_NEG,
 };
 
 static struct rule
@@ -33,19 +41,25 @@ static struct rule
 
     /* TODO: Add more rules.
      * Pay attention to the precedence level of different rules.
+     * 识别规则的优先级不同
      */
 
     {" +", TK_NOTYPE},                  // 空格
     {"\\+", TK_PLUS},                   // +
     {"==", TK_EQ},                      // ==
-    {"-", TK_MINUS},                    // -
-    {"\\*", TK_MUL},                    // *
+    {"-", TK_MINUS},                    // - 减或者负号
+    {"\\*", TK_MUL},                    // * 乘或者指针解引用
     {"/", TK_DIV},                      // /
     {"\\(", TK_LEFT},                   // (
     {"\\)", TK_RIGHT},                  // )
     {"0[xX][0-9a-fA-F]+", TK_NUMBER16}, //十六进制整数,在这里做了一个小设计 是的十六进制数先被识别
     {"[0-9]+", TK_NUMBER10},            //十进制整数
     {"[\\$astrg][ap0-9]", TK_REG},      //寄存器编号
+    {"!=", TK_NEQ},                     //不等于 !=
+    {">=", TK_BEQ},                     //大于等于 >=
+    {">", TK_B},                        //大于 >
+    {"<=", TK_SEQ},                     //小于等于 <=
+    {"<", TK_S},                        //小于 <
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -63,6 +77,8 @@ void getmainop(int p, int q, int *op_type, int *op);
 bool check_parenthese(int p, int q);
 //检查表达式是否合法
 bool check_correct(int p, int q);
+//检查类型
+bool pretest(int type);
 
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
@@ -166,6 +182,26 @@ static bool make_token(char *e)
           tokens[nr_token].type = TK_MUL;
           strncpy(tokens[nr_token].str, substr_start, substr_len);
           break;
+        case TK_NEQ:
+          tokens[nr_token].type = TK_NEQ;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_BEQ:
+          tokens[nr_token].type = TK_BEQ;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_B:
+          tokens[nr_token].type = TK_B;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_SEQ:
+          tokens[nr_token].type = TK_SEQ;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
+        case TK_S:
+          tokens[nr_token].type = TK_S;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
         default:
           //如果匹配到空白符就丢弃
           // Log("遇到了空白符%d子字符串:%s当前字符:%c", rules[i].token_type, substr_start, e[position]);
@@ -187,6 +223,13 @@ static bool make_token(char *e)
   return true;
 }
 
+bool pretest(int type)
+{
+  if (type == TK_RIGHT || type == TK_NUMBER10 || type == TK_NUMBER16 || TK_REG)
+    return false;
+  return true;
+}
+
 word_t expr(char *e, bool *success, int res)
 {
   if (!make_token(e))
@@ -197,6 +240,18 @@ word_t expr(char *e, bool *success, int res)
 
   /* TODO: Insert codes to evaluate the expression. */
   // Log("tokens:%d", nr_token);
+
+  for (int i = 0; i < nr_token; i++)
+  {
+    if (tokens[i].type == '*' && (i == 0 || pretest(tokens[i - 1].type)))
+    {
+      tokens[i].type = TK_POINT;
+    }
+    if (tokens[i].type == '-' && (i == 0 || pretest(tokens[i - 1].type)))
+    {
+      tokens[i].type = TK_NEG;
+    }
+  }
   int cal = eval(1, nr_token);
 
   printf("res:%d  cal:%d\n", res, cal);
@@ -318,13 +373,44 @@ res_t eval(int p, int q)
   {
     Assert(0, "bad expression");
   }
+  else if (p + 1 == q)
+  {
+    //负数或者指针解引用
+    switch (tokens[p].type)
+    {
+    case TK_POINT:
+      // TODO:
+      return 0;
+    case TK_NEG:
+      return -(atoi(tokens[q].str));
+    default:
+      Assert("不支持的操作符", 0);
+      break;
+    }
+  }
   else if (p == q)
   {
-    //单一的数字
-    return atoi(tokens[p].str);
+    bool success = false;
+    res_t res;
+    //单一的十进制数字或者十六进制数字或者寄存器
+    switch (tokens[p].type)
+    {
+    case TK_REG:
+      res = isa_reg_str2val(tokens[q].str, &success);
+      Assert("寄存器内容读取失败", success);
+      return res;
+    case TK_NUMBER10:
+      return atoi(tokens[q].str);
+    case TK_NUMBER16:
+      return char0X2int(tokens[q].str);
+    default:
+      Assert("不支持的操作符", 0);
+      break;
+    }
   }
   else if (check_parenthese(p, q) == true)
   {
+
     return eval(p + 1, q - 1);
   }
   else if (check_correct(p, q) == true)
