@@ -243,7 +243,7 @@ word_t expr(char *e, bool *success, int res)
 
   for (int i = 1; i <= nr_token; i++)
   {
-    Log("number :%d type:%d  str:%s", i, tokens[i].type, tokens[i].str);
+    // Log("number :%d type:%d  str:%s", i, tokens[i].type, tokens[i].str);
     if (tokens[i].type == TK_MUL && (i == 1 || pretest(tokens[i - 1].type)))
     {
       tokens[i].type = TK_POINT;
@@ -378,7 +378,7 @@ res_t eval(int p, int q)
   else if (p + 1 == q)
   {
     //负数或者指针解引用
-    Log("type:%d  str:%s", tokens[p].type, tokens[p].str);
+    // Log("type:%d  str:%s", tokens[p].type, tokens[p].str);
     switch (tokens[p].type)
     {
     case TK_POINT:
