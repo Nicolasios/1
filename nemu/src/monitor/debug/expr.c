@@ -423,10 +423,10 @@ res_t eval(int p, int q)
     int op_type;
     int op = 0;
     getmainop(p, q, &op_type, &op);
-    Log("main op p :%d,main op q :%d ,main op position:%d\n", p, q, op);
+    Log("main op p :%d,main op q :%d ,main op position:%d", p, q, op);
     res_t val1 = eval(p, op - 1);
     res_t val2 = eval(op + 1, q);
-    printf("%ld %s %ld\n", val1, tokens[op].str, val2);
+    Log("%ld %s %ld", val1, tokens[op].str, val2);
     switch (op_type)
     {
     case TK_PLUS:
