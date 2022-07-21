@@ -241,7 +241,7 @@ word_t expr(char *e, bool *success, int res)
   /* TODO: Insert codes to evaluate the expression. */
   // Log("tokens:%d", nr_token);
 
-  for (int i = 0; i < nr_token; i++)
+  for (int i = 1; i <= nr_token; i++)
   {
     if (tokens[i].type == '*' && (i == 0 || pretest(tokens[i - 1].type)))
     {
