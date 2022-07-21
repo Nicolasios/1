@@ -243,11 +243,11 @@ word_t expr(char *e, bool *success, int res)
 
   for (int i = 1; i <= nr_token; i++)
   {
-    if (tokens[i].type == '*' && (i == 0 || pretest(tokens[i - 1].type)))
+    if (tokens[i].type == '*' && (i == 1 || pretest(tokens[i - 1].type)))
     {
       tokens[i].type = TK_POINT;
     }
-    if (tokens[i].type == '-' && (i == 0 || pretest(tokens[i - 1].type)))
+    if (tokens[i].type == '-' && (i == 1 || pretest(tokens[i - 1].type)))
     {
       tokens[i].type = TK_NEG;
     }
