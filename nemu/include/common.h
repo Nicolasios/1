@@ -28,11 +28,13 @@ typedef uint64_t word_t;
 typedef int64_t sword_t;
 typedef uint64_t res_t;
 #define FMT_WORD "0x%016lx"
+#define FME_RES "%ld"
 #else
 typedef uint32_t word_t;
 typedef int32_t sword_t;
 typedef uint32_t res_t;
 #define FMT_WORD "0x%08x"
+#define FME_RES "%d"
 #endif
 
 typedef word_t rtlreg_t;
