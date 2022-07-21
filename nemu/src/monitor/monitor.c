@@ -121,6 +121,8 @@ static inline void expr_test()
     count++;
   }
   fclose(fp);
+
+  Log("%d", -1 + (-2 * 2) + 3 * 4 != 7);
 }
 
 void init_monitor(int argc, char *argv[])
