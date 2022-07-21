@@ -52,7 +52,7 @@ static struct rule
 
 static regex_t re[NR_REGEX] = {};
 //递归求值
-u_int32_t eval(int p, int q);
+res_t eval(int p, int q);
 //生成tokens
 static bool make_token(char *e);
 //判断表达式的正确性
@@ -312,7 +312,7 @@ void getmainop(int p, int q, int *op_type, int *op)
   *op_type = tokens[position].type;
 }
 
-u_int32_t eval(int p, int q)
+res_t eval(int p, int q)
 {
   if (p > q)
   {
@@ -333,8 +333,8 @@ u_int32_t eval(int p, int q)
     int op = 0;
     getmainop(p, q, &op_type, &op);
     printf("main op p :%d,main op q :%d ,main op position:%d\n", p, q, op);
-    uint32_t val1 = eval(p, op - 1);
-    uint32_t val2 = eval(op + 1, q);
+    res_t val1 = eval(p, op - 1);
+    res_t val2 = eval(op + 1, q);
     printf("%d %s %d\n", val1, tokens[op].str, val2);
     switch (op_type)
     {
