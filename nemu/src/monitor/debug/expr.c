@@ -225,7 +225,7 @@ static bool make_token(char *e)
 
 bool pretest(int type)
 {
-  if (type == TK_RIGHT || type == TK_NUMBER10 || type == TK_NUMBER16 || TK_REG)
+  if (type == TK_RIGHT || type == TK_NUMBER10 || type == TK_NUMBER16 || type == TK_REG)
     return false;
   return true;
 }
