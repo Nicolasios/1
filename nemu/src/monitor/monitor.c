@@ -122,7 +122,7 @@ static inline void expr_test()
   }
   fclose(fp);
 
-  Log("%d", (1 < 2) == (2 > 3));
+  Log("%d", (1 < 2) != (2 > 3));
 }
 
 void init_monitor(int argc, char *argv[])
