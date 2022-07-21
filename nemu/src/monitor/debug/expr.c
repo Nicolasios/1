@@ -249,6 +249,7 @@ word_t expr(char *e, bool *success, int res)
     }
     if (tokens[i].type == '-' && (i == 1 || pretest(tokens[i - 1].type)))
     {
+      Log("sdasd");
       tokens[i].type = TK_NEG;
     }
   }
