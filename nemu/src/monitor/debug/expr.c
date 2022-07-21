@@ -250,7 +250,7 @@ word_t expr(char *e, bool *success, int res)
     }
     if (tokens[i].type == TK_MINUS && (i == 1 || pretest(tokens[i - 1].type)))
     {
-      Log("sdasd");
+      // Log("sdasd");
       tokens[i].type = TK_NEG;
     }
   }
@@ -383,10 +383,10 @@ res_t eval(int p, int q)
     {
     case TK_POINT:
       // TODO:
-      Log("bbbb");
+      // Log("bbbb");
       return 0;
     case TK_NEG:
-      Log("cccc");
+      // Log("cccc");
       return -(atoi(tokens[q].str));
     default:
       Assert("不支持的操作符", 0);
