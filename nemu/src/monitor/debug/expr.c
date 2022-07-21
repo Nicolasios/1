@@ -381,8 +381,10 @@ res_t eval(int p, int q)
     {
     case TK_POINT:
       // TODO:
+      Log("bbbb");
       return 0;
     case TK_NEG:
+      Log("cccc");
       return -(atoi(tokens[q].str));
     default:
       Assert("不支持的操作符", 0);
