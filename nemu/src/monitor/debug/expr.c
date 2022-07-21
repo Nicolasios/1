@@ -243,6 +243,7 @@ word_t expr(char *e, bool *success, int res)
 
   for (int i = 1; i <= nr_token; i++)
   {
+    Log("type:%d  str:%s", tokens[i].type, tokens[i].str);
     if (tokens[i].type == '*' && (i == 1 || pretest(tokens[i - 1].type)))
     {
       tokens[i].type = TK_POINT;
