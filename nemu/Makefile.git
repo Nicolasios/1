@@ -1,5 +1,5 @@
 STUID = U201814484-2022-7-15-PA1-2完成
-STUNAME = 童义
+STUNAME = PA1_2 :表达式求值完成到负数表达式求值
 
 # DO NOT modify the following code!!!
 
@@ -9,6 +9,6 @@ GITFLAGS = -q --author='tracer-ics2020 <tracer@njuics.org>' --no-verify --allow-
 define git_commit
 	-@git add .. -A --ignore-errors
 	-@while (test -e .git/index.lock); do sleep 0.1; done
-	-@(echo "$(STUID)" && echo $(STUID) && hostname && uptime) | git commit -F - $(GITFLAGS)
+	-@(echo "$(STUNAME)" && echo $(STUID) && hostname && uptime) | git commit -F - $(GITFLAGS)
 	-@sync
 endef
