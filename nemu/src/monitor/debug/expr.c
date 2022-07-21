@@ -244,11 +244,11 @@ word_t expr(char *e, bool *success, int res)
   for (int i = 1; i <= nr_token; i++)
   {
     Log("number :%d type:%d  str:%s", i, tokens[i].type, tokens[i].str);
-    if (tokens[i].type == '*' && (i == 1 || pretest(tokens[i - 1].type)))
+    if (tokens[i].type == TK_MUL && (i == 1 || pretest(tokens[i - 1].type)))
     {
       tokens[i].type = TK_POINT;
     }
-    if (tokens[i].type == '-' && (i == 1 || pretest(tokens[i - 1].type)))
+    if (tokens[i].type == TK_MINUS && (i == 1 || pretest(tokens[i - 1].type)))
     {
       Log("sdasd");
       tokens[i].type = TK_NEG;
