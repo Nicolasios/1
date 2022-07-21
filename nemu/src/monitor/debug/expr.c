@@ -60,6 +60,7 @@ static struct rule
     {">", TK_B},                        //大于 >
     {"<=", TK_SEQ},                     //小于等于 <=
     {"<", TK_S},                        //小于 <
+    {"&&", TK_AND},                     //按位与&&
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]))
@@ -202,6 +203,10 @@ static bool make_token(char *e)
           tokens[nr_token].type = TK_S;
           strncpy(tokens[nr_token].str, substr_start, substr_len);
           break;
+        case TK_AND:
+          tokens[nr_token].type = TK_AND;
+          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          break;
         default:
           //如果匹配到空白符就丢弃
           // Log("遇到了空白符%d子字符串:%s当前字符:%c", rules[i].token_type, substr_start, e[position]);
@@ -334,30 +339,79 @@ void getmainop(int p, int q, int *op_type, int *op)
     switch (tokens[i].type)
     {
     case TK_DIV:
-      if (prior == 0 && flag == 0)
+      if (prior < 1 && flag == 0)
       {
         prior = 1;
         position = i;
       }
       break;
     case TK_MUL:
-      if (prior == 0 && flag == 0)
+      if (prior < 1 && flag == 0)
       {
         prior = 1;
         position = i;
       }
       break;
     case TK_PLUS:
-      if (prior != 2 && flag == 0)
+      if (prior < 2 && flag == 0)
       {
         prior = 2;
         position = i;
       }
       break;
     case TK_MINUS:
-      if (prior != 2 && flag == 0)
+      if (prior < 2 && flag == 0)
       {
         prior = 2;
+        position = i;
+      }
+      break;
+    case TK_BEQ:
+      if (prior < 3 && flag == 0)
+      {
+        prior = 3;
+        position = i;
+      }
+      break;
+    case TK_B:
+      if (prior < 3 && flag == 0)
+      {
+        prior = 3;
+        position = i;
+      }
+      break;
+    case TK_S:
+      if (prior < 3 && flag == 0)
+      {
+        prior = 3;
+        position = i;
+      }
+      break;
+    case TK_SEQ:
+      if (prior < 3 && flag == 0)
+      {
+        prior = 2;
+        position = 3;
+      }
+      break;
+    case TK_EQ:
+      if (prior < 4 && flag == 0)
+      {
+        prior = 4;
+        position = i;
+      }
+      break;
+    case TK_NEQ:
+      if (prior < 4 && flag == 0)
+      {
+        prior = 4;
+        position = i;
+      }
+      break;
+    case TK_AND:
+      if (prior < 5 && flag == 0)
+      {
+        prior = 5;
         position = i;
       }
       break;
@@ -437,6 +491,18 @@ res_t eval(int p, int q)
       return val1 * val2;
     case TK_DIV:
       return val1 / val2;
+    case TK_AND:
+      return val1 && val2;
+    case TK_NEQ:
+      return val1 != val2;
+    case TK_BEQ:
+      return val1 >= val2;
+    case TK_B:
+      return val1 > val2;
+    case TK_SEQ:
+      return val1 <= val2;
+    case TK_S:
+      return val1 < val2;
     default:
       assert(0);
     }
