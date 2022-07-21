@@ -376,6 +376,7 @@ res_t eval(int p, int q)
   else if (p + 1 == q)
   {
     //负数或者指针解引用
+    Log("aaaaa");
     switch (tokens[p].type)
     {
     case TK_POINT:
