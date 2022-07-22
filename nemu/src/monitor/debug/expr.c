@@ -71,7 +71,7 @@ res_t eval(int p, int q);
 //生成tokens
 static bool make_token(char *e);
 //判断表达式的正确性
-word_t expr(char *e, bool *success, int res);
+word_t expr(char *e, bool *success);
 //获取主操作符的位置
 void getmainop(int p, int q, int *op_type, int *op);
 //检查前后括号是否配对
@@ -235,7 +235,7 @@ bool pretest(int type)
   return true;
 }
 
-word_t expr(char *e, bool *success, int res)
+word_t expr(char *e, bool *success)
 {
   if (!make_token(e))
   {
@@ -259,9 +259,10 @@ word_t expr(char *e, bool *success, int res)
       tokens[i].type = TK_NEG;
     }
   }
+  *success = true;
   int cal = eval(1, nr_token);
-
-  printf("res:%d  cal:%d\n", res, cal);
+  return cal;
+  /*printf("res:%d  cal:%d\n", res, cal);
   if (cal != res)
   {
     *success = false;
@@ -269,6 +270,7 @@ word_t expr(char *e, bool *success, int res)
   }
   *success = true;
   return 0;
+  */
 }
 
 bool check_parenthese(int p, int q)

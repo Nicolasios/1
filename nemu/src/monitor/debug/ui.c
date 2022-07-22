@@ -47,6 +47,13 @@ static int cmd_si_n(char *args);
 static int cmd_info(char *args);
 
 static int cmd_x(char *args);
+
+static int cmd_p(char *args);
+
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
 static struct
 {
   char *name;
@@ -61,6 +68,9 @@ static struct
     {"si", "si [N]:让程序单步执行N条指令后暂停执行,当N没有给出时, 缺省为1", cmd_si_n},
     {"info", "info r:打印寄存器状态;info w:打印监视点信息(目前只实现了info r)", cmd_info},
     {"x", "x N EXPR(x 10 0x100000):将EXPR作为起始内存地址, 以十六进制形式输出连续的N个4字节", cmd_x},
+    {"p", "p Expr 求出表达式的值", cmd_p},
+    {"w", "w EXPR 当表达式EXPR的值发生变化时, 暂停程序执行", cmd_w},
+    {"d", "d N 	删除序号为N的监视点", cmd_d},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
@@ -170,6 +180,40 @@ static int cmd_x(char *args)
     printf("0x%08x:0x%08lx\n", begin_addr + i * READ_BATCH, paddr_read(begin_addr + i * READ_BATCH, READ_BATCH));
   }
   return 1;
+}
+
+static int cmd_p(char *args)
+{
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL)
+  {
+    Log("表达式缺失");
+  }
+  else
+  {
+    bool success = false;
+    res_t res = expr(arg, &success);
+    Log("计算的结果为:%d", res);
+  }
+  return 0;
+}
+
+static int cmd_w(char *args)
+{
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL)
+  {
+    Log("表达式缺失");
+  }
+}
+
+static int cmd_d(char *args)
+{
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL)
+  {
+    Log("监视点序号缺失");
+  }
 }
 
 void ui_mainloop()
