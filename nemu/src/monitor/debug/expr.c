@@ -495,7 +495,7 @@ res_t eval(int p, int q)
       if (val2 == 0)
       {
 
-        Log("除零错误");
+        panic("除零错误");
         return 0;
       }
       return val1 / val2;
