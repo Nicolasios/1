@@ -7,6 +7,7 @@
 #include <string.h>
 #include <debug.h>
 #include <stdlib.h>
+#include "expr.h"
 
 enum
 {
@@ -31,15 +32,6 @@ enum
   TK_S,
   TK_POINT,
   TK_NEG,
-};
-
-enum
-{
-  ERROR_NO_ERROR = 0,
-  ERROR_DIV_ZERO,
-  ERROR_ILLEAGEL_EXPRESS,
-  ERROR_REG_FAIL,
-  ERROR_UNSUPPORT_OP,
 };
 
 static struct rule
