@@ -193,7 +193,7 @@ static int cmd_p(char *args)
   {
     bool success = false;
     res_t res = expr(arg, &success);
-    Log("计算的结果为:%d", res);
+    Log("计算的结果为:%ld", res);
   }
   return 0;
 }
