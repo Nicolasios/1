@@ -492,6 +492,8 @@ res_t eval(int p, int q)
     case TK_MUL:
       return val1 * val2;
     case TK_DIV:
+      if (val2 == 0)
+        panic("除零错误");
       return val1 / val2;
     case TK_AND:
       return val1 && val2;
