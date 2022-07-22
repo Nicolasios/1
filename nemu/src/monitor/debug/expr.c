@@ -221,7 +221,7 @@ static bool make_token(char *e)
 
     if (i == NR_REGEX)
     {
-      printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+      // printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }
   }
@@ -240,7 +240,7 @@ word_t expr(char *e, bool *success)
 {
   if (!make_token(e))
   {
-    *success = false;
+    *success = ERROR_UNSUPPORT_OP;
     return 0;
   }
 
