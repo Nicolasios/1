@@ -154,5 +154,5 @@ void init_monitor(int argc, char *argv[])
   /* Display welcome message. */
   welcome();
 
-  expr_test();
+  // expr_test();
 }
