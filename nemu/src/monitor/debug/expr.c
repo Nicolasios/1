@@ -430,6 +430,7 @@ res_t eval(int p, int q, bool *success)
   if (p > q)
   {
     *success = ERROR_ILLEAGEL_EXPRESS;
+    return 0;
   }
   else if (p + 1 == q)
   {
@@ -446,7 +447,7 @@ res_t eval(int p, int q, bool *success)
       return -(atoi(tokens[q].str));
     default:
       *success = ERROR_UNSUPPORT_OP;
-      break;
+      return 0;
     }
   }
   else if (p == q)
@@ -466,7 +467,7 @@ res_t eval(int p, int q, bool *success)
       return char0X2int(tokens[q].str);
     default:
       *success = ERROR_UNSUPPORT_OP;
-      break;
+      return 0;
     }
   }
   else if (check_parenthese(p, q) == true)
@@ -514,6 +515,7 @@ res_t eval(int p, int q, bool *success)
       return val1 == val2;
     default:
       *success = ERROR_UNSUPPORT_OP;
+      return 0;
     }
   }
   else
