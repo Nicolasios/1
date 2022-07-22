@@ -70,7 +70,7 @@ static struct
     {"x", "x N EXPR(x 10 0x100000):将EXPR作为起始内存地址, 以十六进制形式输出连续的N个4字节", cmd_x},
     {"p", "p Expr 求出表达式的值", cmd_p},
     {"w", "w EXPR 当表达式EXPR的值发生变化时, 暂停程序执行", cmd_w},
-    {"d", "d N 	删除序号为N的监视点", cmd_d},
+    {"d", "d N 删除序号为N的监视点", cmd_d},
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
