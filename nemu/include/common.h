@@ -21,7 +21,7 @@
 #include <assert.h>
 #include <string.h>
 
-typedef uint8_t bool;
+typedef uint32_t bool;
 
 #ifdef ISA64
 typedef uint64_t word_t;

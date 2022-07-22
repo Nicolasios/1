@@ -33,6 +33,15 @@ enum
   TK_NEG,
 };
 
+enum
+{
+  ERROR_NO_ERROR = 0,
+  ERROR_DIV_ZERO,
+  ERROR_ILLEAGEL_EXPRESS,
+  ERROR_REG_FAIL,
+  ERROR_UNSUPPORT_OP,
+};
+
 static struct rule
 {
   char *regex;
@@ -67,7 +76,7 @@ static struct rule
 
 static regex_t re[NR_REGEX] = {};
 //递归求值
-res_t eval(int p, int q);
+res_t eval(int p, int q, bool *success);
 //生成tokens
 static bool make_token(char *e);
 //判断表达式的正确性
@@ -260,7 +269,7 @@ word_t expr(char *e, bool *success)
     }
   }
   *success = true;
-  int cal = eval(1, nr_token);
+  int cal = eval(1, nr_token, &success);
   return cal;
   /*printf("res:%d  cal:%d\n", res, cal);
   if (cal != res)
@@ -425,11 +434,11 @@ void getmainop(int p, int q, int *op_type, int *op)
   *op_type = tokens[position].type;
 }
 
-res_t eval(int p, int q)
+res_t eval(int p, int q, bool *success)
 {
   if (p > q)
   {
-    Assert(0, "bad expression");
+    *success = ERROR_ILLEAGEL_EXPRESS;
   }
   else if (p + 1 == q)
   {
@@ -445,34 +454,34 @@ res_t eval(int p, int q)
       // Log("cccc");
       return -(atoi(tokens[q].str));
     default:
-      Assert("不支持的操作符", 0);
+      *success = ERROR_UNSUPPORT_OP;
       break;
     }
   }
   else if (p == q)
   {
-    bool success = false;
+    bool success1 = false;
     res_t res;
     //单一的十进制数字或者十六进制数字或者寄存器
     switch (tokens[p].type)
     {
     case TK_REG:
-      res = isa_reg_str2val(tokens[q].str, &success);
-      Assert("寄存器内容读取失败", success);
+      res = isa_reg_str2val(tokens[q].str, &success1);
+      *success = ERROR_REG_FAIL;
       return res;
     case TK_NUMBER10:
       return atoi(tokens[q].str);
     case TK_NUMBER16:
       return char0X2int(tokens[q].str);
     default:
-      panic("不支持的操作符");
+      *success = ERROR_UNSUPPORT_OP;
       break;
     }
   }
   else if (check_parenthese(p, q) == true)
   {
 
-    return eval(p + 1, q - 1);
+    return eval(p + 1, q - 1, success);
   }
   else if (check_correct(p, q) == true)
   {
@@ -480,8 +489,8 @@ res_t eval(int p, int q)
     int op = 0;
     getmainop(p, q, &op_type, &op);
     // Log("main op p :%d,main op q :%d ,main op position:%d", p, q, op);
-    res_t val1 = eval(p, op - 1);
-    res_t val2 = eval(op + 1, q);
+    res_t val1 = eval(p, op - 1, success);
+    res_t val2 = eval(op + 1, q, success);
     // Log("%ld %s %ld", val1, tokens[op].str, val2);
     switch (op_type)
     {
@@ -494,8 +503,7 @@ res_t eval(int p, int q)
     case TK_DIV:
       if (val2 == 0)
       {
-
-        Log("除零错误");
+        *success = ERROR_DIV_ZERO;
         return 0;
       }
       return val1 / val2;
@@ -514,11 +522,11 @@ res_t eval(int p, int q)
     case TK_EQ:
       return val1 == val2;
     default:
-      assert(0);
+      *success = ERROR_UNSUPPORT_OP;
     }
   }
   else
   {
-    Assert(0, "unfair expression");
+    *success = ERROR_ILLEAGEL_EXPRESS;
   }
 }

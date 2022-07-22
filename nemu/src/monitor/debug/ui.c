@@ -191,9 +191,28 @@ static int cmd_p(char *args)
   }
   else
   {
-    bool success = false;
+    bool success = 0;
     res_t res = expr(arg, &success);
-    Log("计算的结果为:%ld", res);
+    switch (success)
+    {
+    case ERROR_NO_ERROR:
+      Log("表达式结果为%ld", res);
+      break;
+    case ERROR_DIV_ZERO:
+      Log("除零错误");
+      break;
+    case ERROR_ILLEAGEL_EXPRESS:
+      Log("非法表达式");
+      break;
+    case ERROR_REG_FAIL:
+      Log("寄存器值获取错误");
+      break;
+    case ERROR_UNSUPPORT_OP:
+      Log("包含不支持的操作符");
+      break;
+    default:
+      break;
+    }
   }
   return 0;
 }
