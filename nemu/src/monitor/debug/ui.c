@@ -205,6 +205,7 @@ static int cmd_w(char *args)
   {
     Log("表达式缺失");
   }
+  return 0;
 }
 
 static int cmd_d(char *args)
@@ -214,6 +215,7 @@ static int cmd_d(char *args)
   {
     Log("监视点序号缺失");
   }
+  return 0;
 }
 
 void ui_mainloop()
