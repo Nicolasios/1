@@ -519,5 +519,6 @@ res_t eval(int p, int q, bool *success)
   else
   {
     *success = ERROR_ILLEAGEL_EXPRESS;
+    return 0;
   }
 }
