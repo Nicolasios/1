@@ -465,7 +465,7 @@ res_t eval(int p, int q)
     case TK_NUMBER16:
       return char0X2int(tokens[q].str);
     default:
-      Assert("不支持的操作符", 0);
+      panic("不支持的操作符");
       break;
     }
   }
