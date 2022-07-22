@@ -191,28 +191,7 @@ static int cmd_p(char *args)
   }
   else
   {
-    bool success = 0;
-    res_t res = expr(arg, &success);
-    switch (success)
-    {
-    case ERROR_NO_ERROR:
-      Log("表达式结果为%ld", res);
-      break;
-    case ERROR_DIV_ZERO:
-      Log("除零错误");
-      break;
-    case ERROR_ILLEAGEL_EXPRESS:
-      Log("非法表达式");
-      break;
-    case ERROR_REG_FAIL:
-      Log("寄存器值获取错误");
-      break;
-    case ERROR_UNSUPPORT_OP:
-      Log("包含不支持的操作符");
-      break;
-    default:
-      break;
-    }
+    exprcal(arg);
   }
   return 0;
 }
@@ -223,6 +202,12 @@ static int cmd_w(char *args)
   if (arg == NULL)
   {
     Log("表达式缺失");
+  }
+  else
+  {
+    WP *new = new_wp();
+    res_t res = exprcal(arg);
+    new->res = res;
   }
   return 0;
 }

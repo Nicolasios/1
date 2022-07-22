@@ -81,7 +81,8 @@ bool check_parenthese(int p, int q);
 bool check_correct(int p, int q);
 //检查类型
 bool pretest(int type);
-
+//表达式判别和计算
+res_t exprcal(char *arg);
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
@@ -523,4 +524,31 @@ res_t eval(int p, int q, bool *success)
     *success = ERROR_ILLEAGEL_EXPRESS;
     return 0;
   }
+}
+
+res_t exprcal(char *arg)
+{
+  bool success = 0;
+  res_t res = expr(arg, &success);
+  switch (success)
+  {
+  case ERROR_NO_ERROR:
+    Log("表达式结果为%ld", res);
+    break;
+  case ERROR_DIV_ZERO:
+    Log("除零错误");
+    break;
+  case ERROR_ILLEAGEL_EXPRESS:
+    Log("非法表达式");
+    break;
+  case ERROR_REG_FAIL:
+    Log("寄存器值获取错误");
+    break;
+  case ERROR_UNSUPPORT_OP:
+    Log("包含不支持的操作符");
+    break;
+  default:
+    break;
+  }
+  return res;
 }

@@ -7,7 +7,12 @@ static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
 
 WP *new_wp();
+
 void free_wp(WP *wp);
+
+WP *gethead();
+
+WP *getfree();
 
 void init_wp_pool()
 {
@@ -59,6 +64,17 @@ WP *new_wp()
     newWp->NO = tmp->NO + 1;
   }
   return newWp;
+}
+
+//获取使用中head指针
+WP *gethead()
+{
+  return head;
+}
+//获取空闲块free指针
+WP *getfree()
+{
+  return free_;
 }
 
 //使用双指针来判定 释放观测点
