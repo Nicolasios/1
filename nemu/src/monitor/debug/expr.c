@@ -129,8 +129,8 @@ static bool make_token(char *e)
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s and tokens number is %d",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start, nr_token + 1);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s and tokens number is %d",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start, nr_token + 1);
 
         position += substr_len;
         // Log("%d", e[position] == '\0');
@@ -479,10 +479,10 @@ res_t eval(int p, int q)
     int op_type;
     int op = 0;
     getmainop(p, q, &op_type, &op);
-    Log("main op p :%d,main op q :%d ,main op position:%d", p, q, op);
+    // Log("main op p :%d,main op q :%d ,main op position:%d", p, q, op);
     res_t val1 = eval(p, op - 1);
     res_t val2 = eval(op + 1, q);
-    Log("%ld %s %ld", val1, tokens[op].str, val2);
+    // Log("%ld %s %ld", val1, tokens[op].str, val2);
     switch (op_type)
     {
     case TK_PLUS:
