@@ -498,7 +498,7 @@ res_t eval(int p, int q)
         panic("除零错误");
         return 0;
       }
-      return val1 / val2;
+      return 0;
     case TK_AND:
       return val1 && val2;
     case TK_NEQ:
