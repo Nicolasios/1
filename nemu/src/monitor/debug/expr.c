@@ -260,8 +260,7 @@ word_t expr(char *e, bool *success)
       tokens[i].type = TK_NEG;
     }
   }
-  *success = true;
-  int cal = eval(1, nr_token, &success);
+  int cal = eval(1, nr_token, success);
   return cal;
   /*printf("res:%d  cal:%d\n", res, cal);
   if (cal != res)
