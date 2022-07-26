@@ -16,6 +16,8 @@ static void restart()
   cpu.pc = PMEM_BASE + IMAGE_START;
 
   /* The zero register is always 0. */
+  Log("初始化");
+  cpu.gpr[0]._64 = 0;
   cpu.gpr[0]._64 = 1;
 }
 
