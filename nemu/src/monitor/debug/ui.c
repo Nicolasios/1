@@ -136,6 +136,7 @@ static int cmd_info(char *args)
   else if (strcmp(arg, "w") == 0)
   {
     Log("打印监控点信息");
+    is_wp_display();
   }
   else
   {
@@ -208,6 +209,8 @@ static int cmd_w(char *args)
     WP *new = new_wp();
     res_t res = exprcal(arg);
     new->res = res;
+    strcpy(new->expr, arg);
+    Log("新增监测点%d : %s = %ld", new->NO, new->expr, new->res);
   }
   return 0;
 }
@@ -218,6 +221,11 @@ static int cmd_d(char *args)
   if (arg == NULL)
   {
     Log("监视点序号缺失");
+  }
+  else
+  {
+    int number = atoi(arg);
+    free_wp(number);
   }
   return 0;
 }

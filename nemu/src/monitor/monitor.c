@@ -17,7 +17,7 @@ static int batch_mode = false;
 static int difftest_port = 1234;
 
 int is_batch_mode() { return batch_mode; }
-#define DEBUG
+
 static inline void welcome()
 {
 #ifdef DEBUG
@@ -116,7 +116,7 @@ static inline void expr_test()
   {
     printf("第%d个计算式", count + 1);
     printf("%s = %d\n", e, res);
-    expr(e, &success[count], res);
+    expr(e, &success[count]);
     printf("success:%d\n", success[count]);
     count++;
   }

@@ -3,7 +3,8 @@
 #include <monitor/difftest.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <monitor/watchpoint.h>
+#include <../src/monitor/debug/watchpoint.h>
+#include <../src/monitor/debug/expr.h>
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -105,6 +106,15 @@ void cpu_exec(uint64_t n)
 
     /* TODO: check watchpoints here. */
     WP *head = gethead();
+    while (head != NULL)
+    {
+      if (head->res != exprcal(head->expr))
+      {
+        nemu_state.state = NEMU_STOP;
+        break;
+      }
+    }
+
 #endif
 
 #ifdef HAS_IOE

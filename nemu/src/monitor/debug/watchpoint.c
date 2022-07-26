@@ -8,11 +8,13 @@ static WP *head = NULL, *free_ = NULL;
 
 WP *new_wp();
 
-void free_wp(WP *wp);
+void free_wp(int NO);
 
 WP *gethead();
 
 WP *getfree();
+
+void is_wp_display();
 
 void init_wp_pool()
 {
@@ -78,7 +80,7 @@ WP *getfree()
 }
 
 //使用双指针来判定 释放观测点
-void free_wp(WP *wp)
+void free_wp(int NO)
 {
   if (head == NULL)
   {
@@ -88,51 +90,67 @@ void free_wp(WP *wp)
   else
   {
     WP *tmp = head;
-    if (tmp->next == NULL && tmp->NO == wp->NO)
+    if (tmp->next == NULL && tmp->NO == NO)
     {
+      Log("dsdasd");
       head = NULL;
       tmp->next = free_;
       free_ = tmp;
       return;
     }
-    if (tmp->next == NULL && tmp->NO != wp->NO)
+    if (tmp->next == NULL && tmp->NO != NO)
     {
-      Log("监测池没有对应的监测点");
+      Log("监测池没有对应的监测点1");
       return;
     }
-    if (tmp->next != NULL && tmp->NO == wp->NO)
+    if (tmp->next != NULL && tmp->NO == NO)
     {
       head = tmp->next;
       tmp->next = free_;
       free_ = tmp;
       return;
     }
-    if (tmp->next != NULL && tmp->NO != wp->NO)
+    if (tmp->next != NULL && tmp->NO != NO)
     {
       WP *nn = tmp->next;
       //定位
-      while (nn->next != NULL && nn->NO != wp->NO)
+      while (nn->next != NULL && nn->NO != NO)
       {
         tmp = tmp->next;
         nn = nn->next;
       }
-      if (nn->next == NULL && nn->NO != wp->NO)
+      if (nn->next == NULL && nn->NO != NO)
       {
-        Log("监测池没有对应的监测点");
+        Log("监测池没有对应的监测点2");
         return;
       }
+      // Log("定位到的表达式为:%s", nn->expr);
       //修改head
       tmp->next = nn->next;
+      // Log("tmp:%s--tmp->next:%s", tmp->expr, tmp->next->expr);
       //修改free
       nn->next = free_;
       free_ = nn;
       //修改head的wp的序号tmp之后
       tmp = tmp->next;
+      // Log("tmp:%s", tmp->expr);
       while (tmp != NULL)
       {
-        tmp->next->NO = tmp->next->NO - 1;
+        // Log("3");
+        tmp->NO = tmp->NO - 1;
         tmp = tmp->next;
+        // Log("4");
       }
     }
+  }
+}
+
+void is_wp_display()
+{
+  WP *tmp = head;
+  while (tmp != NULL)
+  {
+    Log("观测点%d: expr:%s res:%ld", tmp->NO, tmp->expr, tmp->res);
+    tmp = tmp->next;
   }
 }

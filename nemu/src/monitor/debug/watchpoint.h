@@ -11,15 +11,18 @@ typedef struct watchpoint
 
   /* TODO: Add more members if necessary */
   res_t res;
+  char expr[256];
 
 } WP;
 
 WP *new_wp();
 
-void free_wp(WP *wp);
+void free_wp(int NO);
 
 WP *gethead();
 
 WP *getfree();
+
+void is_wp_display();
 
 #endif
