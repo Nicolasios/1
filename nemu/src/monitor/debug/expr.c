@@ -531,7 +531,7 @@ res_t exprcal(char *arg)
   bool success = 0;
   for (int count = 1; count <= nr_token; count++)
   {
-    Log("%s:%s", tokens[count].type, tokens[count].str);
+    Log("%d:%s", tokens[count].type, tokens[count].str);
   }
   res_t res = expr(arg, &success);
   switch (success)
