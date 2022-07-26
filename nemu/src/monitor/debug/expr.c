@@ -261,6 +261,10 @@ word_t expr(char *e, bool *success)
       tokens[i].type = TK_NEG;
     }
   }
+  for (int count = 1; count <= nr_token; count++)
+  {
+    Log("%d:%s", tokens[count].type, tokens[count].str);
+  }
   int cal = eval(1, nr_token, success);
   return cal;
   /*printf("res:%d  cal:%d\n", res, cal);
@@ -529,10 +533,6 @@ res_t eval(int p, int q, bool *success)
 res_t exprcal(char *arg)
 {
   bool success = 0;
-  for (int count = 1; count <= nr_token; count++)
-  {
-    Log("%d:%s", tokens[count].type, tokens[count].str);
-  }
   res_t res = expr(arg, &success);
   switch (success)
   {
