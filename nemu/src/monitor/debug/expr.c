@@ -118,7 +118,7 @@ static bool make_token(char *e)
   int position = 0;
   int i;
   regmatch_t pmatch;
-
+  Log("%s", e);
   nr_token = 0;
   while (e[position] != '\0')
   {
