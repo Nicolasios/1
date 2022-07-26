@@ -92,7 +92,7 @@ void free_wp(int NO)
     WP *tmp = head;
     if (tmp->next == NULL && tmp->NO == NO)
     {
-      Log("dsdasd");
+      // Log("dsdasd");
       head = NULL;
       tmp->next = free_;
       free_ = tmp;
