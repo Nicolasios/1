@@ -108,6 +108,12 @@ void free_wp(int NO)
       head = tmp->next;
       tmp->next = free_;
       free_ = tmp;
+      WP *nn = head;
+      while (nn != NULL)
+      {
+        nn->NO = nn->NO - 1;
+        nn = nn->expr;
+      }
       return;
     }
     if (tmp->next != NULL && tmp->NO != NO)
