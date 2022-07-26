@@ -118,7 +118,7 @@ static bool make_token(char *e)
   int position = 0;
   int i;
   regmatch_t pmatch;
-  Log("%s", e);
+  // Log("%s", e);
   nr_token = 0;
   while (e[position] != '\0')
   {
@@ -261,10 +261,10 @@ word_t expr(char *e, bool *success)
       tokens[i].type = TK_NEG;
     }
   }
-  for (int count = 1; count <= nr_token; count++)
-  {
-    Log("%d:%s", tokens[count].type, tokens[count].str);
-  }
+  // for (int count = 1; count <= nr_token; count++)
+  // {
+  //   Log("%d:%s", tokens[count].type, tokens[count].str);
+  // }
   int cal = eval(1, nr_token, success);
   return cal;
   /*printf("res:%d  cal:%d\n", res, cal);
@@ -485,10 +485,10 @@ res_t eval(int p, int q, bool *success)
     int op_type;
     int op = 0;
     getmainop(p, q, &op_type, &op);
-    Log("main op p :%d,main op q :%d ,main op position:%d", p, q, op);
+    // Log("main op p :%d,main op q :%d ,main op position:%d", p, q, op);
     res_t val1 = eval(p, op - 1, success);
     res_t val2 = eval(op + 1, q, success);
-    Log("%ld %s %ld", val1, tokens[op].str, val2);
+    // Log("%ld %s %ld", val1, tokens[op].str, val2);
     switch (op_type)
     {
     case TK_PLUS:
