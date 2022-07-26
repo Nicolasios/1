@@ -147,67 +147,67 @@ static bool make_token(char *e)
         {
         case TK_REG:
           tokens[nr_token].type = TK_REG;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_EQ:
           tokens[nr_token].type = TK_EQ;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_PLUS:
           tokens[nr_token].type = TK_PLUS;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_MINUS:
           tokens[nr_token].type = TK_MINUS;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_DIV:
           tokens[nr_token].type = TK_DIV;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_LEFT:
           tokens[nr_token].type = TK_LEFT;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_RIGHT:
           tokens[nr_token].type = TK_RIGHT;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_NUMBER10:
           tokens[nr_token].type = TK_NUMBER10;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_NUMBER16:
           tokens[nr_token].type = TK_NUMBER16;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_MUL:
           tokens[nr_token].type = TK_MUL;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_NEQ:
           tokens[nr_token].type = TK_NEQ;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_BEQ:
           tokens[nr_token].type = TK_BEQ;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_B:
           tokens[nr_token].type = TK_B;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_SEQ:
           tokens[nr_token].type = TK_SEQ;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_S:
           tokens[nr_token].type = TK_S;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         case TK_AND:
           tokens[nr_token].type = TK_AND;
-          strncpy(tokens[nr_token].str, substr_start, substr_len);
+          strcpy(tokens[nr_token].str, substr_start);
           break;
         default:
           //如果匹配到空白符就丢弃
