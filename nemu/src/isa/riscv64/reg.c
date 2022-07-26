@@ -14,7 +14,7 @@ void isa_reg_display()
   int i, j = 0;
   for (i = 0; i < REG_NUMBER; i++, j++)
   {
-    printf("%-16s%#-20lx%-16lu\n", reg_name(i), reg_d(i), reg_d(i));
+    printf("%-16s%#-20lx%-16lu\n", reg_name(i), cpu.gpr[i]._64, reg_d(i));
   }
   printf("\n");
 }
