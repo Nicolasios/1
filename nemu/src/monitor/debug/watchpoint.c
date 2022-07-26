@@ -112,7 +112,7 @@ void free_wp(int NO)
       while (nn != NULL)
       {
         nn->NO = nn->NO - 1;
-        nn = nn->expr;
+        nn = nn->next;
       }
       return;
     }
