@@ -9,8 +9,8 @@ static inline def_DopHelper(i)
 {
   op->type = OP_TYPE_IMM;
   op->imm = val;
-  Log("def_Dop_i");
   print_Dop(op->str, OP_STR_SIZE, "%ld", op->imm);
+  Log("def_Dop_i");
 }
 
 static inline def_DopHelper(r)
