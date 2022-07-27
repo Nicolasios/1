@@ -12,6 +12,6 @@ static inline def_EHelper(auipc)
 
 static inline def_EHelper(addi)
 {
-  rtl_addi(s, ddest, &s->seq_pc, id_src1->imm);
-  print_asm_template2(auipc);
+  rtl_addi(s, ddest, id_src1, id_src2->imm);
+  print_asm_template2(addi);
 }
