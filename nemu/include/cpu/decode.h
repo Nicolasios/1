@@ -4,12 +4,19 @@
 #include <isa.h>
 
 #define OP_STR_SIZE 40
-enum { OP_TYPE_REG, OP_TYPE_MEM, OP_TYPE_IMM };
+enum
+{
+  OP_TYPE_REG,
+  OP_TYPE_MEM,
+  OP_TYPE_IMM
+};
 
-typedef struct {
+typedef struct
+{
   uint32_t type;
   int width;
-  union {
+  union
+  {
     uint32_t reg;
     word_t imm;
     sword_t simm;
@@ -19,9 +26,10 @@ typedef struct {
   char str[OP_STR_SIZE];
 } Operand;
 
-typedef struct {
+typedef struct
+{
   uint32_t opcode;
-  vaddr_t seq_pc;  // sequential pc
+  vaddr_t seq_pc; // sequential pc
   uint32_t is_jmp;
   vaddr_t jmp_pc;
   Operand src1, dest, src2;
@@ -30,8 +38,8 @@ typedef struct {
   ISADecodeInfo isa;
 } DecodeExecState;
 
-#define def_DHelper(name) void concat(decode_, name) (DecodeExecState *s)
-
+#define def_DHelper(name) void concat(decode_, name)(DecodeExecState * s)
+#define DEBUG
 #ifdef DEBUG
 #define print_Dop(...) snprintf(__VA_ARGS__)
 #else
