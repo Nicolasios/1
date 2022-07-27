@@ -39,7 +39,6 @@ typedef struct
 } DecodeExecState;
 
 #define def_DHelper(name) void concat(decode_, name)(DecodeExecState * s)
-#define DEBUG
 #ifdef DEBUG
 #define print_Dop(...) snprintf(__VA_ARGS__)
 #else
