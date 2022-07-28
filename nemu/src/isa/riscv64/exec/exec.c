@@ -46,6 +46,7 @@ static inline void fetch_decode_exec(DecodeExecState *s)
   default:
     exec_inv(s);
   }
+  Log("seq:0x%lx  jmp:0x%lx  isJmp:%d",s->seq_pc,s->jmp_pc,s->is_jmp);
 }
 
 static inline void reset_zero()
