@@ -141,12 +141,12 @@ static inline def_rtl(host_sm, void *addr, const rtlreg_t *src1, int len) {
 // control
 
 static inline def_rtl(j, vaddr_t target) {
-  s->jmp_pc = target;
+  s->jmp_pc = target + s->seq_pc;
   s->is_jmp = true;
 }
 
 static inline def_rtl(jr, rtlreg_t *target) {
-  s->jmp_pc = *target;
+  s->jmp_pc = *target + s->seq_pc;
   s->is_jmp = true;
 }
 
