@@ -14,7 +14,7 @@ static inline def_EHelper(auipc)
 //I
 static inline def_EHelper(addi)
 {
-  Log("0x%lx  %d",reg_d(2),id_src2->imm);
+  // Log("0x%lx  %d",reg_d(2),id_src2->imm);
 
   rtl_addi(s, ddest, dsrc1, id_src2->imm);
   print_asm_template3(addi);
