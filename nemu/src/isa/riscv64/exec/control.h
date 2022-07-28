@@ -4,7 +4,7 @@ static inline def_EHelper(jal)
   rtl_li(s, ddest,s->seq_pc);
   int offset = id_src1->imm;
   Log("0x%lx   0x%lx",offset,offset>>20);
-  rtl_j(s, id_src1->imm>>8);
+  rtl_j(s, offset>>20);
   Log("sqe:0x%x jmp: 0x%x",s->seq_pc,s->jmp_pc);
   print_asm_template2(jal);
 }
