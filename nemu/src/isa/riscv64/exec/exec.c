@@ -31,7 +31,7 @@ static inline def_EHelper(store)
 static inline void fetch_decode_exec(DecodeExecState *s)
 {
   s->isa.instr.val = instr_fetch(&s->seq_pc, 4);
-  Log("0x%lx",s->isa.instr.val);
+  // Log("0x%lx",s->isa.instr.val);
   Assert(s->isa.instr.i.opcode1_0 == 0x3, "Invalid instruction");
   // Log("%d", s->isa.instr.i.opcode6_2);
   switch (s->isa.instr.i.opcode6_2)
@@ -46,7 +46,7 @@ static inline void fetch_decode_exec(DecodeExecState *s)
   default:
     exec_inv(s);
   }
-  Log("seq:0x%lx  jmp:0x%lx  isJmp:%d",s->seq_pc,s->jmp_pc,s->is_jmp);
+  // Log("seq:0x%lx  jmp:0x%lx  isJmp:%d",s->seq_pc,s->jmp_pc,s->is_jmp);
 }
 
 static inline void reset_zero()
